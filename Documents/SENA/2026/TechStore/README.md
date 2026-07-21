@@ -1,34 +1,41 @@
-# TechStore
+# TechStore Solutions S.A.S.
 
-Carpeta central del proyecto TechStore Solutions S.A.S.
+Carpeta central del proyecto TechStore.
 
-## Estructura
+## Estructura general
+
+- `00_diseno_inicial/`
+  Maqueta original del sitio web, documentos iniciales, assets visuales, scripts de apoyo y referencia de la versión HTML previa.
 
 - `01_web/`
-  Web del proyecto.
+  Aplicación web funcional en Java con JSP, Servlets y JDBC.
+  Módulos principales: `productos`, `proveedores`, `usuarios`, `tickets`, `pedidos` y `carritos`.
 
 - `02_java_jdbc/`
-  Proyecto Java con JDBC para la evidencia GA7.
+  Evidencia de consola y ejercicios Java JDBC complementarios.
 
 - `03_base_datos/sql/`
-  Script SQL, modelo relacional y soportes de base de datos.
+  Script relacional principal de TechStore.
 
 - `04_base_datos/nosql/`
-  Evidencia MongoDB y soportes NoSQL.
+  Evidencia y soportes NoSQL / MongoDB.
 
 - `05_documentacion/`
-  Informes, plantillas y documentos finales.
+  Informes técnicos, plantillas y documentos finales.
 
 - `06_evidencias/`
-  Capturas, pruebas y soportes de ejecución.
+  Capturas, pruebas, verificaciones y soportes para el video.
 
 - `07_instaladores/`
-  JDK, NetBeans, driver JDBC y demás instaladores.
+  JDK, NetBeans, Tomcat, driver JDBC y utilidades de instalación.
 
 - `08_videos/`
-  Videos de sustentación y grabaciones de entrega.
+  Videos o enlaces de sustentación.
 
-## Base de datos activa para JDBC
+- `09_mysql_portable/`
+  Instancia portátil de MySQL usada para el proyecto.
+
+## Base de datos activa
 
 - Nombre: `techstore_sql_real`
 - Host: `127.0.0.1`
@@ -36,21 +43,14 @@ Carpeta central del proyecto TechStore Solutions S.A.S.
 - Usuario: `root`
 - Contraseña: `TechStore3308`
 
-## Instancia local TechStore
+## Recomendación de trabajo
 
-- Inicio: `09_mysql_portable/start-techstore-mysql.bat`
-- Cierre: `09_mysql_portable/stop-techstore-mysql.bat`
+1. Revisar primero `00_diseno_inicial/` para entender la maqueta original.
+2. Luego trabajar `01_web/` como versión funcional final.
+3. Mantener `03_base_datos/` sincronizada con la web.
+4. Guardar cada captura o prueba en `06_evidencias/`.
+5. Registrar el video final en `08_videos/`.
 
-## Flujo recomendado para la evidencia GA7
+## Regla del proyecto
 
-1. Ejecutar el script SQL ubicado en `03_base_datos/sql/techstore_script.sql`.
-2. Confirmar que la base `techstore_sql_real` y la tabla `productos` existen.
-3. Abrir el proyecto Java en NetBeans.
-4. Verificar que el archivo `mysql-connector-j-9.7.0.jar` está en `07_instaladores/` y agregado al proyecto.
-5. Ejecutar `src/techstore/TechStore.java`.
-6. Ejecutar `TechStore.java` o abrir Workbench contra `127.0.0.1:3308`.
-7. Tomar captura del resultado en consola y de la consulta en MySQL Workbench.
-
-## Regla de trabajo
-
-Todo lo nuevo de TechStore debe guardarse aquí para no dispersar archivos por otras carpetas de `SENA/2026`.
+Todo archivo nuevo de TechStore debe guardarse dentro de esta carpeta para evitar dispersión del material.
