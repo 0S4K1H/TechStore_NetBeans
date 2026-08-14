@@ -143,14 +143,14 @@ DESCRIBE tickets_soporte;
 -- ============================================================
 
 INSERT INTO usuarios (id_usuario, username, password_demo, rol, nombre, email, ciudad) VALUES
-('u_cliente','cliente','12345','cliente','Cliente TechStore','cliente@techstore.com','Bogota'),
-('u_empleado','empleado','12345','empleado','Ana Torres','ana@techstore.demo','Bogota'),
-('u_admin','admin','12345','administrador','Mateo Cardenas','mateo@techstore.com','Bogota'),
-('u_lgomez','lgomez','12345','cliente','Laura Gomez','laura@techstore.demo','Medellin'),
-('u_nmejia','nmejia','12345','cliente','Nicolas Mejia','nicolas@techstore.demo','Bucaramanga'),
-('u_carlos','carlos','12345','empleado','Carlos Ruiz','carlos@techstore.demo','Bogota'),
-('u_luisa','luisa','12345','empleado','Luisa Gomez','luisa@techstore.demo','Bogota'),
-('u_miguel','miguel','12345','empleado','Miguel Vega','miguel@techstore.demo','Bogota');
+('USR001','cliente','12345','cliente','Cliente TechStore','cliente@techstore.com','Bogota'),
+('USR002','empleado','12345','empleado','Ana Torres','ana@techstore.demo','Bogota'),
+('USR003','admin','12345','administrador','Mateo Cardenas','mateo@techstore.com','Bogota'),
+('USR004','lgomez','12345','cliente','Laura Gomez','laura@techstore.demo','Medellin'),
+('USR005','nmejia','12345','cliente','Nicolas Mejia','nicolas@techstore.demo','Bucaramanga'),
+('USR006','carlos','12345','empleado','Carlos Ruiz','carlos@techstore.demo','Bogota'),
+('USR007','luisa','12345','empleado','Luisa Gomez','luisa@techstore.demo','Bogota'),
+('USR008','miguel','12345','empleado','Miguel Vega','miguel@techstore.demo','Bogota');
 
 INSERT INTO proveedores (id_proveedor, nombre, email) VALUES
 ('PRV001','Lenovo Colombia','contacto@lenovo.demo'),
@@ -169,7 +169,7 @@ INSERT INTO productos (id_producto, codigo_inv, id_proveedor, nombre, categoria,
 ('p9','INV-1009','PRV002','Impresora HP LaserJet','periferico',820000.00,2,0);
 
 INSERT INTO carritos (id_usuario, estado) VALUES
-('u_cliente','activo');
+('USR001','activo');
 
 INSERT INTO carrito_detalle (id_carrito, id_producto, cantidad, precio_unitario) VALUES
 (1,'p2',1,1480000.00),
@@ -182,44 +182,44 @@ INSERT INTO pedidos (
   subtotal, costo_envio, descuento, total,
   estado, prioridad, metodo_pago, nota
 ) VALUES
-('TS-903218','u_cliente','u_carlos','Carlos Ruiz','Cliente TechStore','cliente@techstore.com','3001234567','Calle 80 # 15-22','Bogota','2026-03-03','2026-03-07','TechExpress',1880000.00,25000.00,25000.00,1880000.00,'preparacion','alta','Billetera digital','Llamar antes de entregar'),
-('TS-458120','u_cliente','u_empleado','Ana Torres','Cliente TechStore','cliente@techstore.com','3001234567','Calle 12 #45-67','Bogota','2026-02-24','2026-02-27','TechExpress',3170000.00,0.00,0.00,3170000.00,'enviado','alta','Tarjeta credito','Entregar en recepcion'),
-('TS-120044','u_cliente','u_luisa','Luisa Gomez','Cliente TechStore','cliente@techstore.com','3001234567','Cra 18 # 90-11','Bogota','2026-02-10','2026-02-13','EnviaTech',650000.00,25000.00,25000.00,650000.00,'entregado','baja','Tarjeta debito',''),
-('TS-331907','u_lgomez','u_carlos','Carlos Ruiz','Laura Gomez','laura@techstore.demo','3015558899','Cra 81 #20-11','Medellin','2026-02-21','2026-02-25','EnviaTech',1790000.00,0.00,0.00,1790000.00,'entregado','media','Transferencia',''),
-('TS-740512','u_nmejia','u_miguel','Miguel Vega','Nicolas Mejia','nicolas@techstore.demo','3028004455','Calle 90 #10-52','Bucaramanga','2026-02-19','2026-02-23','TechExpress',420000.00,25000.00,25000.00,420000.00,'cancelado','media','Contraentrega','Cancelado por el cliente');
+('PED005','USR001','USR006','Carlos Ruiz','Cliente TechStore','cliente@techstore.com','3001234567','Calle 80 # 15-22','Bogota','2026-03-03','2026-03-07','TechExpress',1880000.00,25000.00,25000.00,1880000.00,'preparacion','alta','Billetera digital','Llamar antes de entregar'),
+('PED004','USR001','USR002','Ana Torres','Cliente TechStore','cliente@techstore.com','3001234567','Calle 12 #45-67','Bogota','2026-02-24','2026-02-27','TechExpress',3170000.00,0.00,0.00,3170000.00,'enviado','alta','Tarjeta credito','Entregar en recepcion'),
+('PED001','USR001','USR007','Luisa Gomez','Cliente TechStore','cliente@techstore.com','3001234567','Cra 18 # 90-11','Bogota','2026-02-10','2026-02-13','EnviaTech',650000.00,25000.00,25000.00,650000.00,'entregado','baja','Tarjeta debito',''),
+('PED003','USR004','USR006','Carlos Ruiz','Laura Gomez','laura@techstore.demo','3015558899','Cra 81 #20-11','Medellin','2026-02-21','2026-02-25','EnviaTech',1790000.00,0.00,0.00,1790000.00,'entregado','media','Transferencia',''),
+('PED002','USR005','USR008','Miguel Vega','Nicolas Mejia','nicolas@techstore.demo','3028004455','Calle 90 #10-52','Bucaramanga','2026-02-19','2026-02-23','TechExpress',420000.00,25000.00,25000.00,420000.00,'cancelado','media','Contraentrega','Cancelado por el cliente');
 
 INSERT INTO pedido_detalle (id_pedido, id_producto, nombre_producto, categoria, cantidad, precio_unitario, subtotal) VALUES
-('TS-903218','p5','Tarjeta grafica RTX 4060','componente',1,1850000.00,1850000.00),
-('TS-903218','p8','Mouse gaming','periferico',1,70000.00,70000.00),
-('TS-458120','p1','Laptop Lenovo IdeaPad','laptop',1,2300000.00,2300000.00),
-('TS-458120','p3','Teclado mecanico RGB','accesorio',1,220000.00,220000.00),
-('TS-458120','p6','Monitor Samsung 24 pulgadas','periferico',1,650000.00,650000.00),
-('TS-120044','p6','Monitor Samsung 24 pulgadas','periferico',1,650000.00,650000.00),
-('TS-331907','p2','Smartphone Galaxy A55','movil',1,1480000.00,1480000.00),
-('TS-331907','p4','Audifonos inalambricos','accesorio',1,310000.00,310000.00),
-('TS-740512','p7','Disco SSD 1TB','componente',1,420000.00,420000.00);
+('PED005','p5','Tarjeta grafica RTX 4060','componente',1,1850000.00,1850000.00),
+('PED005','p8','Mouse gaming','periferico',1,70000.00,70000.00),
+('PED004','p1','Laptop Lenovo IdeaPad','laptop',1,2300000.00,2300000.00),
+('PED004','p3','Teclado mecanico RGB','accesorio',1,220000.00,220000.00),
+('PED004','p6','Monitor Samsung 24 pulgadas','periferico',1,650000.00,650000.00),
+('PED001','p6','Monitor Samsung 24 pulgadas','periferico',1,650000.00,650000.00),
+('PED003','p2','Smartphone Galaxy A55','movil',1,1480000.00,1480000.00),
+('PED003','p4','Audifonos inalambricos','accesorio',1,310000.00,310000.00),
+('PED002','p7','Disco SSD 1TB','componente',1,420000.00,420000.00);
 
 INSERT INTO pedido_timeline (id_pedido, fecha_evento, descripcion) VALUES
-('TS-903218','2026-03-03 09:12:00','Pago aprobado y pedido registrado.'),
-('TS-903218','2026-03-03 13:40:00','Pedido confirmado por bodega.'),
-('TS-903218','2026-03-04 08:20:00','Pedido en preparacion para despacho.'),
-('TS-458120','2026-02-24 09:15:00','Pago aprobado y pedido registrado.'),
-('TS-458120','2026-02-24 13:00:00','Pedido confirmado por bodega.'),
-('TS-458120','2026-02-25 08:40:00','Pedido despachado hacia centro logistico.'),
-('TS-458120','2026-02-26 07:20:00','Pedido en ruta para entrega.'),
-('TS-120044','2026-02-10 10:18:00','Pago aprobado y pedido registrado.'),
-('TS-120044','2026-02-10 15:52:00','Pedido despachado.'),
-('TS-120044','2026-02-11 08:00:00','Pedido en camino.'),
-('TS-120044','2026-02-12 14:27:00','Pedido entregado al cliente.'),
-('TS-331907','2026-02-21 11:05:00','Pago aprobado y pedido registrado.'),
-('TS-331907','2026-02-21 16:30:00','Producto en proceso de empaque.'),
-('TS-331907','2026-02-22 07:55:00','Pedido despachado.'),
-('TS-331907','2026-02-23 17:10:00','Pedido entregado al cliente.'),
-('TS-740512','2026-02-19 09:00:00','Pago autorizado y pedido creado.'),
-('TS-740512','2026-02-19 12:10:00','Pedido cancelado por solicitud del cliente.');
+('PED005','2026-03-03 09:12:00','Pago aprobado y pedido registrado.'),
+('PED005','2026-03-03 13:40:00','Pedido confirmado por bodega.'),
+('PED005','2026-03-04 08:20:00','Pedido en preparacion para despacho.'),
+('PED004','2026-02-24 09:15:00','Pago aprobado y pedido registrado.'),
+('PED004','2026-02-24 13:00:00','Pedido confirmado por bodega.'),
+('PED004','2026-02-25 08:40:00','Pedido despachado hacia centro logistico.'),
+('PED004','2026-02-26 07:20:00','Pedido en ruta para entrega.'),
+('PED001','2026-02-10 10:18:00','Pago aprobado y pedido registrado.'),
+('PED001','2026-02-10 15:52:00','Pedido despachado.'),
+('PED001','2026-02-11 08:00:00','Pedido en camino.'),
+('PED001','2026-02-12 14:27:00','Pedido entregado al cliente.'),
+('PED003','2026-02-21 11:05:00','Pago aprobado y pedido registrado.'),
+('PED003','2026-02-21 16:30:00','Producto en proceso de empaque.'),
+('PED003','2026-02-22 07:55:00','Pedido despachado.'),
+('PED003','2026-02-23 17:10:00','Pedido entregado al cliente.'),
+('PED002','2026-02-19 09:00:00','Pago autorizado y pedido creado.'),
+('PED002','2026-02-19 12:10:00','Pedido cancelado por solicitud del cliente.');
 
 INSERT INTO tickets_soporte (id_ticket, id_usuario_cliente, asunto, mensaje, estado, fecha_creacion, fecha_cierre) VALUES
-('TK-440210','u_cliente','Seguimiento pedido TS-458120','Necesito confirmar si el pedido llega hoy.','abierto','2026-02-26 16:10:00',NULL);
+('TKT001','USR001','Seguimiento pedido PED004','Necesito confirmar si el pedido llega hoy.','abierto','2026-02-26 16:10:00',NULL);
 
 -- ============================================================
 -- 4) CONSULTAS DE VALIDACION
