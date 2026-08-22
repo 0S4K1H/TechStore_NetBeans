@@ -4,6 +4,7 @@ import com.techstore.web.dao.TicketSoporteDAO;
 import com.techstore.web.dao.UsuarioDAO;
 import com.techstore.web.model.TicketSoporte;
 import com.techstore.web.model.Usuario;
+import com.techstore.web.util.ApiSupport;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -71,6 +72,14 @@ public class TicketSoporteServlet extends HttpServlet {
         String filtro = request.getParameter("q");
         List<TicketSoporte> tickets = ticketDAO.listar(filtro);
 
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion != null && !ApiSupport.isInterno(sesion)) {
+            // Un cliente solo ve sus propios tickets en el listado.
+            tickets = tickets.stream()
+                    .filter(t -> sesion.getIdUsuario().equals(t.getIdUsuarioCliente()))
+                    .toList();
+        }
+
         request.setAttribute("tickets", tickets);
         request.setAttribute("filtro", filtro == null ? "" : filtro);
         reenviar(request, response, LISTA_JSP);
@@ -98,6 +107,10 @@ public class TicketSoporteServlet extends HttpServlet {
             redirigirConMensaje(request, response, "tickets", "error", "No se encontró el ticket solicitado.");
             return;
         }
+        if (!puedeAcceder(request, ticket.getIdUsuarioCliente())) {
+            redirigirConMensaje(request, response, "tickets", "error", "No tienes permiso para ver este ticket.");
+            return;
+        }
 
         mostrarFormulario(request, response, ticket, "editar", "Editar ticket");
     }
@@ -107,8 +120,30 @@ public class TicketSoporteServlet extends HttpServlet {
         String modo = valor(request.getParameter("modo"), "crear");
         TicketSoporte ticket = construirTicket(request);
 
-        if (!"editar".equalsIgnoreCase(modo)) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            redirigirConMensaje(request, response, "tickets", "error", "Debes iniciar sesión para continuar.");
+            return;
+        }
+
+        if ("editar".equalsIgnoreCase(modo)) {
+            TicketSoporte existente = ticket.getIdTicket() == null || ticket.getIdTicket().isBlank()
+                    ? null : ticketDAO.buscarPorId(ticket.getIdTicket());
+            if (existente == null || !puedeAcceder(request, existente.getIdUsuarioCliente())) {
+                redirigirConMensaje(request, response, "tickets", "error", "No tienes permiso para editar este ticket.");
+                return;
+            }
+            if (!ApiSupport.isInterno(sesion)) {
+                // Un cliente no puede reasignar su ticket a otro dueño ni cambiar campos de triage.
+                ticket.setIdUsuarioCliente(existente.getIdUsuarioCliente());
+                ticket.setEstado(existente.getEstado());
+            }
+        } else {
             ticket.setIdTicket(ticketDAO.siguienteIdTicket());
+            if (!ApiSupport.isInterno(sesion)) {
+                // Un cliente solo puede abrir tickets a su propio nombre.
+                ticket.setIdUsuarioCliente(sesion.getIdUsuario());
+            }
         }
 
         String validacion = validar(ticket);
@@ -147,6 +182,12 @@ public class TicketSoporteServlet extends HttpServlet {
         String id = valor(request.getParameter("id"), "").trim();
         if (id.isEmpty()) {
             redirigirConMensaje(request, response, "tickets", "error", "Debes indicar el ID a eliminar.");
+            return;
+        }
+
+        TicketSoporte existente = ticketDAO.buscarPorId(id);
+        if (existente == null || !puedeAcceder(request, existente.getIdUsuarioCliente())) {
+            redirigirConMensaje(request, response, "tickets", "error", "No tienes permiso para cerrar este ticket.");
             return;
         }
 
@@ -255,6 +296,15 @@ public class TicketSoporteServlet extends HttpServlet {
 
     private String valor(String texto, String defecto) {
         return texto == null ? defecto : texto;
+    }
+
+    /** Personal interno ve/edita cualquier ticket; un cliente solo el suyo. */
+    private boolean puedeAcceder(HttpServletRequest request, String idUsuarioCliente) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            return false;
+        }
+        return ApiSupport.isInterno(sesion) || sesion.getIdUsuario().equals(idUsuarioCliente);
     }
 }
 

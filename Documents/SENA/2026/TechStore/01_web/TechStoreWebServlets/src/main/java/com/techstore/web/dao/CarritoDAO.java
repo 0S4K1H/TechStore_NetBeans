@@ -127,14 +127,19 @@ public class CarritoDAO {
     }
 
     public boolean eliminar(Long idCarrito) throws SQLException {
+        try (Connection conexion = Conexion.getConnection()) {
+            return cerrar(conexion, idCarrito);
+        }
+    }
+
+    public boolean cerrar(Connection conexion, Long idCarrito) throws SQLException {
         String sql = """
                 UPDATE carritos
                 SET estado = 'cerrado'
                 WHERE id_carrito = ? AND estado = 'activo'
                 """;
 
-        try (Connection conexion = Conexion.getConnection();
-                PreparedStatement ps = conexion.prepareStatement(sql)) {
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setLong(1, idCarrito);
             return ps.executeUpdate() > 0;
         }

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/gestion de inventario.css">
+    <link rel="stylesheet" href="css/techstore-shell.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Gestion de inventario | TechStore</title>
+</head>
+
+<body>
+  <div class="curve-top"></div>
+
+  <div class="code-bg" aria-hidden="true">
+    <i class="fas fa-code"></i>
+    <i class="fas fa-laptop-code"></i>
+    <i class="fab fa-js"></i>
+    <i class="fas fa-database"></i>
+    <i class="fas fa-server"></i>
+    <i class="fas fa-microchip"></i>
+    <i class="fas fa-terminal"></i>
+    <i class="fas fa-cogs"></i>
+  </div>
+
+  <main class="card">
+    <header class="header">
+      <div class="logo-container">
+        <img src="img/Techstore-logo.png" alt="Logo TechStore">
+      </div>
+      <div class="brand-icon" aria-hidden="true">
+        <i class="fas fa-boxes-stacked"></i>
+      </div>
+      <h1 class="title">TECHSTORE</h1>
+      <p class="subtitle">Gestion de inventario</p>
+    </header>
+
+    <section class="filters-panel">
+      <form id="filterForm" class="filters-form">
+        <div class="input-group">
+          <i class="fas fa-search icon"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por codigo o producto">
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-layer-group icon"></i>
+          <select id="categoryFilter">
+            <option value="">Todas las categorias</option>
+            <option value="laptop">Laptops</option>
+            <option value="movil">Dispositivos moviles</option>
+            <option value="accesorio">Accesorios</option>
+            <option value="componente">Componentes</option>
+            <option value="periferico">Perifericos</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-chart-line icon"></i>
+          <select id="stockFilter">
+            <option value="">Todos los niveles</option>
+            <option value="normal">Stock normal</option>
+            <option value="bajo">Stock bajo</option>
+            <option value="agotado">Agotado</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-accept">
+          <i class="fas fa-filter"></i> Filtrar
+        </button>
+        <button type="button" id="clearBtn" class="btn-cancel">
+          <i class="fas fa-eraser"></i> Limpiar
+        </button>
+      </form>
+    </section>
+
+    <section class="layout">
+      <section class="inventory-panel">
+        <h2 class="section-title">Inventario disponible</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Producto</th>
+                <th>Categoria</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <h2 class="section-title">Resumen rapido</h2>
+        <div class="metrics">
+          <article class="metric-card">
+            <span>Productos</span>
+            <strong id="totalProducts">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Stock bajo</span>
+            <strong id="lowStock">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Agotados</span>
+            <strong id="outStock">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Valor inventario</span>
+            <strong id="inventoryValue">$0</strong>
+          </article>
+        </div>
+
+        <section class="add-panel">
+          <h3>Agregar producto</h3>
+          <form id="addForm" class="add-form">
+            <div class="input-group">
+              <i class="fas fa-barcode icon"></i>
+              <input type="text" id="newCode" placeholder="Codigo. Ej: INV-2001">
+            </div>
+            <div class="input-group">
+              <i class="fas fa-tag icon"></i>
+              <input type="text" id="newName" placeholder="Nombre del producto">
+            </div>
+            <div class="input-group">
+              <i class="fas fa-layer-group icon"></i>
+              <select id="newCategory">
+                <option value="">Categoria</option>
+                <option value="laptop">Laptops</option>
+                <option value="movil">Dispositivos moviles</option>
+                <option value="accesorio">Accesorios</option>
+                <option value="componente">Componentes</option>
+                <option value="periferico">Perifericos</option>
+              </select>
+            </div>
+            <div class="inline-fields">
+              <div class="input-group">
+                <i class="fas fa-dollar-sign icon"></i>
+                <input type="number" id="newPrice" min="1" placeholder="Precio">
+              </div>
+              <div class="input-group">
+                <i class="fas fa-box icon"></i>
+                <input type="number" id="newStock" min="0" placeholder="Stock">
+              </div>
+            </div>
+            <button type="submit" class="btn-secondary">
+              <i class="fas fa-plus"></i> Agregar al inventario
+            </button>
+          </form>
+        </section>
+
+        <section class="alerts-panel">
+          <h3>Alertas de stock</h3>
+          <ul id="alertsList" class="alerts-list"></ul>
+        </section>
+      </aside>
+    </section>
+
+    <p id="message">Administra existencias, agrega productos y controla niveles de inventario.</p>
+  </main>
+
+    <script src="js/techstore-app.js"></script>
+  <script src="js/techstore-shell.js"></script>
+  <script src="js/techstore-ui.js"></script>
+  <script src="js/inventory.js"></script>
+</body>
+
+</html>
+

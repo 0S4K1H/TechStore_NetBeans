@@ -2,10 +2,12 @@ package com.techstore.web.dao;
 
 import com.techstore.web.model.TicketSoporte;
 import com.techstore.web.util.Conexion;
+import com.techstore.web.util.RetrySupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,15 @@ public class TicketSoporteDAO {
                 WHERE UPPER(id_ticket) REGEXP '^TKT[0-9]+$'
                 """);
         return String.format("TKT%03d", siguiente + 1);
+    }
+
+    public int contarAbiertos() throws SQLException {
+        String sql = "SELECT COUNT(*) AS total FROM tickets_soporte WHERE estado IN ('abierto', 'en_proceso')";
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+            return rs.next() ? rs.getInt("total") : 0;
+        }
     }
 
     public List<TicketSoporte> listar(String filtro) throws SQLException {
@@ -81,6 +92,22 @@ public class TicketSoporteDAO {
                 return rs.next() ? mapearTicket(rs) : null;
             }
         }
+    }
+
+    /** Genera el id_ticket y crea el ticket, reintentando si otra creación concurrente ya tomó el id calculado. */
+    public TicketSoporte crearConIdAutomatico(TicketSoporte ticket) throws SQLException {
+        SQLIntegrityConstraintViolationException ultimoError = null;
+        for (int intento = 0; intento < 20; intento++) {
+            ticket.setIdTicket(siguienteIdTicket());
+            try {
+                crear(ticket);
+                return ticket;
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                ultimoError = ex;
+                RetrySupport.esperarBackoffAleatorio(intento);
+            }
+        }
+        throw ultimoError;
     }
 
     public boolean crear(TicketSoporte ticket) throws SQLException {

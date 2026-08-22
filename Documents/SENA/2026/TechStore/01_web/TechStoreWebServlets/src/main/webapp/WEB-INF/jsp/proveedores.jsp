@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Proveedor" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Proveedor,com.techstore.web.util.Html" %>
 <%
     List<Proveedor> proveedores = (List<Proveedor>) request.getAttribute("proveedores");
     if (proveedores == null) {
@@ -40,10 +40,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -51,7 +51,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar proveedor</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, nombre o correo">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, nombre o correo">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -79,15 +79,15 @@
                 <% } else { %>
                     <% for (Proveedor proveedor : proveedores) { %>
                         <tr>
-                            <td><%= proveedor.getIdProveedor() %></td>
-                            <td><%= proveedor.getNombre() %></td>
-                            <td><%= proveedor.getEmail() %></td>
+                            <td><%= Html.escape(proveedor.getIdProveedor()) %></td>
+                            <td><%= Html.escape(proveedor.getNombre()) %></td>
+                            <td><%= Html.escape(proveedor.getEmail()) %></td>
                             <td>
                                 <div class="row-actions">
-                                    <a class="link-action" href="<%= contextPath %>/proveedores?accion=editar&id=<%= proveedor.getIdProveedor() %>">Editar</a>
+                                    <a class="link-action" href="<%= contextPath %>/proveedores?accion=editar&id=<%= Html.escape(proveedor.getIdProveedor()) %>">Editar</a>
                                     <form method="post" action="<%= contextPath %>/proveedores" onsubmit="return confirm('¿Deseas eliminar este proveedor?');">
                                         <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= proveedor.getIdProveedor() %>">
+                                        <input type="hidden" name="id" value="<%= Html.escape(proveedor.getIdProveedor()) %>">
                                         <button class="link-action link-action--danger" type="submit">Eliminar</button>
                                     </form>
                                 </div>

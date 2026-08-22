@@ -4,8 +4,9 @@ Módulo web del proyecto **TechStore Solutions S.A.S.** desarrollado para la evi
 
 ## Alcance
 
-- Formularios HTML dentro de JSP.
-- Servlets con métodos `doGet` y `doPost`.
+- React sirve la UI visible en `/techstore-web-servlets/ui/`.
+- Tomcat expone backend/API en `/techstore-web-servlets/api/*`.
+- JSP/Servlets clásicos quedan como compatibilidad y backend auxiliar.
 - Persistencia JDBC sobre MySQL.
 - Módulos funcionales de productos, proveedores, usuarios, tickets, pedidos y carritos.
 
@@ -37,7 +38,7 @@ Módulo web del proyecto **TechStore Solutions S.A.S.** desarrollado para la evi
 
 ## Vistas JSP
 
-- `index.jsp`
+- `index.jsp` redirige a la UI React.
 - `WEB-INF/jsp/productos.jsp`
 - `WEB-INF/jsp/producto-form.jsp`
 - `WEB-INF/jsp/proveedores.jsp`
@@ -51,20 +52,24 @@ Módulo web del proyecto **TechStore Solutions S.A.S.** desarrollado para la evi
 
 ## Rutas
 
-- `/TechStoreWeb/`
-- `/TechStoreWeb/productos?accion=listar`
-- `/TechStoreWeb/productos?accion=nuevo`
-- `/TechStoreWeb/productos?accion=editar&id=p1`
-- `/TechStoreWeb/proveedores?accion=listar`
-- `/TechStoreWeb/usuarios?accion=listar`
-- `/TechStoreWeb/pedidos?accion=listar`
-- `/TechStoreWeb/pedidos?accion=nuevo`
-- `/TechStoreWeb/carritos?accion=listar`
-- `/TechStoreWeb/carritos?accion=nuevo`
+- `/techstore-web-servlets/` -> redirección a `/techstore-web-servlets/ui/`
+- `/techstore-web-servlets/ui/`
+- `/techstore-web-servlets/ui/#/login`
+- `/techstore-web-servlets/ui/#/productos`
+- `/techstore-web-servlets/api/auth/login`
+- `/techstore-web-servlets/productos?accion=listar`
+- `/techstore-web-servlets/productos?accion=nuevo`
+- `/techstore-web-servlets/productos?accion=editar&id=p1`
+- `/techstore-web-servlets/proveedores?accion=listar`
+- `/techstore-web-servlets/usuarios?accion=listar`
+- `/techstore-web-servlets/pedidos?accion=listar`
+- `/techstore-web-servlets/pedidos?accion=nuevo`
+- `/techstore-web-servlets/carritos?accion=listar`
+- `/techstore-web-servlets/carritos?accion=nuevo`
 
 ## Ejecución local
 
 1. Descomprime Tomcat en `C:\Users\mateo\Documents\SENA\2026\TechStore\07_instaladores\apache-tomcat-10.1.57`.
 2. Asegura que MySQL TechStore esté activo en `3308`.
 3. Ejecuta `run-local.ps1`.
-4. Abre `http://localhost:8080/TechStoreWeb/`.
+4. Abre `http://localhost:8080/techstore-web-servlets/ui/`.

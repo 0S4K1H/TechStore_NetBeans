@@ -4,6 +4,7 @@ import com.techstore.web.dao.PedidoDAO;
 import com.techstore.web.dao.UsuarioDAO;
 import com.techstore.web.model.Pedido;
 import com.techstore.web.model.Usuario;
+import com.techstore.web.util.ApiSupport;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
@@ -71,6 +72,14 @@ public class PedidoServlet extends HttpServlet {
         String filtro = request.getParameter("q");
         List<Pedido> pedidos = pedidoDAO.listar(filtro);
 
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion != null && !ApiSupport.isInterno(sesion)) {
+            // Un cliente solo ve sus propios pedidos en el listado.
+            pedidos = pedidos.stream()
+                    .filter(p -> sesion.getIdUsuario().equals(p.getIdUsuarioCliente()))
+                    .toList();
+        }
+
         request.setAttribute("pedidos", pedidos);
         request.setAttribute("filtro", filtro == null ? "" : filtro);
         reenviar(request, response, LISTA_JSP);
@@ -99,6 +108,10 @@ public class PedidoServlet extends HttpServlet {
             redirigirConMensaje(request, response, "pedidos", "error", "No se encontró el pedido solicitado.");
             return;
         }
+        if (!puedeAcceder(request, pedido.getIdUsuarioCliente())) {
+            redirigirConMensaje(request, response, "pedidos", "error", "No tienes permiso para ver este pedido.");
+            return;
+        }
 
         mostrarFormulario(request, response, pedido, "editar", "Editar pedido");
     }
@@ -108,8 +121,25 @@ public class PedidoServlet extends HttpServlet {
         String modo = valor(request.getParameter("modo"), "crear");
         Pedido pedido = construirPedido(request);
 
-        if (!"editar".equalsIgnoreCase(modo)) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            redirigirConMensaje(request, response, "pedidos", "error", "Debes iniciar sesión para continuar.");
+            return;
+        }
+
+        if ("editar".equalsIgnoreCase(modo)) {
+            Pedido existente = pedido.getIdPedido() == null || pedido.getIdPedido().isBlank()
+                    ? null : pedidoDAO.buscarPorId(pedido.getIdPedido());
+            if (existente == null || !puedeAcceder(request, existente.getIdUsuarioCliente())) {
+                redirigirConMensaje(request, response, "pedidos", "error", "No tienes permiso para editar este pedido.");
+                return;
+            }
+        } else {
             pedido.setIdPedido(pedidoDAO.siguienteIdPedido());
+            if (!ApiSupport.isInterno(sesion)) {
+                // Un cliente solo puede crear pedidos a su propio nombre.
+                pedido.setIdUsuarioCliente(sesion.getIdUsuario());
+            }
         }
 
         String validacion = validar(pedido);
@@ -154,6 +184,12 @@ public class PedidoServlet extends HttpServlet {
         }
 
         try {
+            Pedido existente = pedidoDAO.buscarPorId(id);
+            if (existente == null || !puedeAcceder(request, existente.getIdUsuarioCliente())) {
+                redirigirConMensaje(request, response, "pedidos", "error", "No tienes permiso para cancelar este pedido.");
+                return;
+            }
+
             boolean exito = pedidoDAO.eliminar(id);
             if (exito) {
                 redirigirConMensaje(request, response, "pedidos", "mensaje", "Pedido cancelado correctamente.");
@@ -327,6 +363,15 @@ public class PedidoServlet extends HttpServlet {
 
     private String valor(String texto, String defecto) {
         return texto == null ? defecto : texto;
+    }
+
+    /** Personal interno ve/edita cualquier pedido; un cliente solo el suyo. */
+    private boolean puedeAcceder(HttpServletRequest request, String idUsuarioCliente) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            return false;
+        }
+        return ApiSupport.isInterno(sesion) || sesion.getIdUsuario().equals(idUsuarioCliente);
     }
 
     @FunctionalInterface

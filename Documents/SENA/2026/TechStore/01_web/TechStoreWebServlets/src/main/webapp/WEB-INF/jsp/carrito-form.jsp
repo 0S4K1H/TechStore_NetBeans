@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Carrito,com.techstore.web.model.Usuario" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Carrito,com.techstore.web.model.Usuario,com.techstore.web.util.Html" %>
 <%
     Carrito carrito = (Carrito) request.getAttribute("carrito");
     if (carrito == null) {
@@ -43,7 +43,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -62,8 +62,8 @@
                 <select name="idUsuario" required>
                     <option value="">-- Selecciona --</option>
                     <% for (Usuario cliente : clientes) { %>
-                        <option value="<%= cliente.getIdUsuario() %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(carrito.getIdUsuario()) ? "selected" : "" %>>
-                            <%= cliente.getNombre() %> (<%= cliente.getIdUsuario() %>)
+                        <option value="<%= Html.escape(cliente.getIdUsuario()) %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(carrito.getIdUsuario()) ? "selected" : "" %>>
+                            <%= Html.escape(cliente.getNombre()) %> (<%= Html.escape(cliente.getIdUsuario()) %>)
                         </option>
                     <% } %>
                 </select>

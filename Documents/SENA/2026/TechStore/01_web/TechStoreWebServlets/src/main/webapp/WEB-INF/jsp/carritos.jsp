@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Carrito" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Carrito,com.techstore.web.util.Html" %>
 <%
     List<Carrito> carritos = (List<Carrito>) request.getAttribute("carritos");
     if (carritos == null) {
@@ -39,10 +39,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -50,7 +50,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar carrito</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, cliente o estado">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, cliente o estado">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -81,10 +81,10 @@
                     <% for (Carrito carrito : carritos) { %>
                         <tr>
                             <td><%= carrito.getIdCarrito() %></td>
-                            <td><%= carrito.getUsuario() %> (<%= carrito.getIdUsuario() %>)</td>
+                            <td><%= Html.escape(carrito.getUsuario()) %> (<%= Html.escape(carrito.getIdUsuario()) %>)</td>
                             <td>
                                 <span class="badge <%= "activo".equalsIgnoreCase(carrito.getEstado()) ? "badge--success" : "badge--danger" %>">
-                                    <%= carrito.getEstado() %>
+                                    <%= Html.escape(carrito.getEstado()) %>
                                 </span>
                             </td>
                             <td><%= carrito.getFechaCreacion() %></td>

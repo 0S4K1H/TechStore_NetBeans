@@ -1,0 +1,28 @@
+# Build outputs
+**/target/
+**/build/
+**/_compile_test/
+**/*.class
+
+# Runtime files
+**/logs/
+**/work/
+**/temp/
+**/*.log
+**/*.tmp
+
+# NetBeans local settings
+**/nbproject/private/
+
+# Local environment files
+**/.env
+
+# TechStore local tool state
+**/.impeccable/
+
+# Tomcat runtime/deployed webapps
+07_instaladores/apache-tomcat-10.1.57/webapps/
+
+# OS junk
+Thumbs.db
+.DS_Store

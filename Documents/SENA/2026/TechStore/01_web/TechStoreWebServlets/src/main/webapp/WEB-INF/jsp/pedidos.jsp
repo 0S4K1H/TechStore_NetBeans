@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Pedido" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Pedido,com.techstore.web.util.Html" %>
 <%
     List<Pedido> pedidos = (List<Pedido>) request.getAttribute("pedidos");
     if (pedidos == null) {
@@ -39,10 +39,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -50,7 +50,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar pedido</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, cliente, estado o transportadora">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, cliente, estado o transportadora">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -84,21 +84,21 @@
                 <% } else { %>
                     <% for (Pedido pedido : pedidos) { %>
                         <tr>
-                            <td><%= pedido.getIdPedido() %></td>
-                            <td><%= pedido.getNombreCliente() %></td>
-                            <td><%= pedido.getEmpleadoAsignado() %></td>
-                            <td><span class="badge badge--success"><%= pedido.getEstado() %></span></td>
-                            <td><%= pedido.getPrioridad() %></td>
+                            <td><%= Html.escape(pedido.getIdPedido()) %></td>
+                            <td><%= Html.escape(pedido.getNombreCliente()) %></td>
+                            <td><%= Html.escape(pedido.getEmpleadoAsignado()) %></td>
+                            <td><span class="badge badge--success"><%= Html.escape(pedido.getEstado()) %></span></td>
+                            <td><%= Html.escape(pedido.getPrioridad()) %></td>
                             <td><%= pedido.getFechaPedido() %></td>
                             <td><%= pedido.getFechaEstimada() %></td>
                             <td>$ <%= pedido.getSubtotal() %></td>
                             <td>$ <%= pedido.getTotal() %></td>
                             <td>
                                 <div class="row-actions">
-                                    <a class="link-action" href="<%= contextPath %>/pedidos?accion=editar&id=<%= pedido.getIdPedido() %>">Editar</a>
+                                    <a class="link-action" href="<%= contextPath %>/pedidos?accion=editar&id=<%= Html.escape(pedido.getIdPedido()) %>">Editar</a>
                                     <form method="post" action="<%= contextPath %>/pedidos" onsubmit="return confirm('¿Deseas cancelar este pedido?');">
                                         <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= pedido.getIdPedido() %>">
+                                        <input type="hidden" name="id" value="<%= Html.escape(pedido.getIdPedido()) %>">
                                         <button class="link-action link-action--danger" type="submit">Cancelar</button>
                                     </form>
                                 </div>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portada operativa de TechStore con acceso unificado a catalogo, pedidos, soporte, inventario y reportes.">
+  <meta name="theme-color" content="#071a27">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/techstore-shell.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Inicio | TechStore</title>
+</head>
+
+<body class="page-home">
+  <div class="curve-top"></div>
+
+  <div class="code-bg code-bg--home" aria-hidden="true">
+    <i class="fas fa-laptop-code"></i>
+    <i class="fas fa-database"></i>
+    <i class="fas fa-server"></i>
+    <i class="fas fa-microchip"></i>
+    <i class="fas fa-shield-halved"></i>
+    <i class="fas fa-cart-shopping"></i>
+    <i class="fas fa-chart-line"></i>
+    <i class="fas fa-headset"></i>
+    <i class="fas fa-mobile-screen"></i>
+    <i class="fas fa-network-wired"></i>
+  </div>
+
+  <main class="home-card">
+    <section class="hero">
+      <article class="hero-panel">
+        <div class="hero-panel__intro">
+          <span class="eyebrow">Ecosistema operativo TechStore</span>
+          <h1>TechStore</h1>
+          <p>
+            Un mismo entorno para explorar catalogo, comprar, hacer seguimiento, atender soporte
+            y gestionar la operacion desde una sola entrada.
+          </p>
+          <div class="hero-proof" aria-label="Resumen del sistema">
+            <article class="hero-proof__item">
+              <strong>11</strong>
+              <span>modulos enlazados para cliente, operacion y administracion</span>
+            </article>
+            <article class="hero-proof__item">
+              <strong>3</strong>
+              <span>perfiles autorizados para recorrer la experiencia completa</span>
+            </article>
+            <article class="hero-proof__item">
+              <strong>1</strong>
+              <span>flujo continuo desde la busqueda hasta el reporte final</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-highlights">
+          <article class="hero-highlight">
+            <i class="fas fa-compass" aria-hidden="true"></i>
+            <div>
+              <strong>Navegacion centralizada</strong>
+              <span>Acceso directo a compra, soporte, inventario y reportes.</span>
+            </div>
+          </article>
+          <article class="hero-highlight">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            <div>
+              <strong>Control administrativo</strong>
+              <span>Sesion y modulos organizados para la operacion diaria.</span>
+            </div>
+          </article>
+          <article class="hero-highlight">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+            <div>
+              <strong>Vision ejecutiva</strong>
+              <span>Resumen rapido del estado general desde el inicio.</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-actions">
+          <a class="hero-cta hero-cta--primary" href="Buscar productos.html">
+            <span class="hero-cta__icon">
+              <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+            </span>
+            <span class="hero-cta__content">
+              <strong>Explorar catalogo</strong>
+              <small>Consulta productos, precios y flujo comercial desde la tienda.</small>
+            </span>
+          </a>
+
+          <div class="hero-links" aria-label="Accesos rapidos">
+            <a href="Autenticidad de un usuario.html">Gestionar acceso</a>
+            <a href="Mapa de navegacion TechStore.html">Mapa del sitio</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="hero-panel hero-panel--brand dark">
+        <div class="hero-panel__intro hero-panel__intro--brand">
+          <h2>
+            <span>Una experiencia digital</span>
+            <span>clara y lista para operar.</span>
+          </h2>
+          <p class="hero-panel__lead">
+            TechStore organiza el recorrido comercial y operativo en una sola pantalla de entrada.
+          </p>
+        </div>
+
+        <div class="brand-story">
+          <div id="homeSession"></div>
+
+          <article class="brand-card">
+            <span class="brand-card__icon">
+              <i class="fas fa-laptop-code" aria-hidden="true"></i>
+            </span>
+            <div class="brand-card__body">
+              <strong>Catalogo especializado</strong>
+              <p>Productos y accesorios para estudio, trabajo y productividad.</p>
+            </div>
+          </article>
+
+          <article class="brand-card">
+            <span class="brand-card__icon">
+              <i class="fas fa-truck-fast" aria-hidden="true"></i>
+            </span>
+            <div class="brand-card__body">
+              <strong>Compra con seguimiento</strong>
+              <p>Cada pedido mantiene estado visible durante todo el recorrido de compra.</p>
+            </div>
+          </article>
+
+          <article class="brand-card">
+            <span class="brand-card__icon">
+              <i class="fas fa-headset" aria-hidden="true"></i>
+            </span>
+            <div class="brand-card__body">
+              <strong>Soporte y respaldo</strong>
+              <p>Acompanamiento oportuno para resolver dudas y fortalecer la confianza.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="brand-pillars" aria-label="Pilares de TechStore">
+          <span>Compra segura</span>
+          <span>Atencion confiable</span>
+          <span>Gestion clara</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-head">
+      <div>
+        <span class="eyebrow">Visibilidad general</span>
+        <h2>Pulso del sistema</h2>
+        <p>Indicadores clave para entender en segundos el estado actual de TechStore.</p>
+      </div>
+    </section>
+    <section id="dashboardStats" class="dashboard-grid"></section>
+
+    <section class="section-head">
+      <div>
+        <span class="eyebrow">Navegacion principal</span>
+        <h2>Rutas y modulos integrados</h2>
+        <p>Accesos directos a las partes principales del sistema.</p>
+      </div>
+    </section>
+    <section class="module-grid">
+      <a class="module-card" href="Autenticidad de un usuario.html">
+        <span class="module-card__icon"><i class="fas fa-user-shield" aria-hidden="true"></i></span>
+        <small>Acceso</small>
+        <h3>Autenticidad de usuario</h3>
+        <p>Inicio de sesion para cliente, empleado y administrador.</p>
+      </a>
+
+      <a class="module-card" href="Buscar productos.html">
+        <span class="module-card__icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></span>
+        <small>Cliente</small>
+        <h3>Buscar productos</h3>
+        <p>Consulta el catalogo con filtros por texto, categoria y precio.</p>
+      </a>
+
+      <a class="module-card" href="Agregar productos al carrito.html">
+        <span class="module-card__icon"><i class="fas fa-cart-shopping" aria-hidden="true"></i></span>
+        <small>Cliente</small>
+        <h3>Carrito de compras</h3>
+        <p>Agrega productos, ajusta cantidades y prepara el pedido.</p>
+      </a>
+
+      <a class="module-card" href="Realizar compras.html">
+        <span class="module-card__icon"><i class="fas fa-credit-card" aria-hidden="true"></i></span>
+        <small>Cliente</small>
+        <h3>Realizar compras</h3>
+        <p>Completa datos de envio, cupon y metodo de pago.</p>
+      </a>
+
+      <a class="module-card" href="Seguimiento de pedidos.html">
+        <span class="module-card__icon"><i class="fas fa-truck-fast" aria-hidden="true"></i></span>
+        <small>Cliente</small>
+        <h3>Seguimiento de pedidos</h3>
+        <p>Consulta el progreso del pedido y revisa cambios de estado.</p>
+      </a>
+
+      <a class="module-card" href="Visualizar historial de compras.html">
+        <span class="module-card__icon"><i class="fas fa-clock-rotate-left" aria-hidden="true"></i></span>
+        <small>Cliente</small>
+        <h3>Historial de compras</h3>
+        <p>Revisa compras realizadas, estados y detalle por pedido.</p>
+      </a>
+
+      <a class="module-card" href="Chat de soporte.html">
+        <span class="module-card__icon"><i class="fas fa-headset" aria-hidden="true"></i></span>
+        <small>Soporte</small>
+        <h3>Chat de soporte</h3>
+        <p>Gestion de tickets y atencion al cliente.</p>
+      </a>
+
+      <a class="module-card" href="Gestion de inventario.html">
+        <span class="module-card__icon"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></span>
+        <small>Admin</small>
+        <h3>Gestion de inventario</h3>
+        <p>Controla stock, estados de productos y altas de inventario.</p>
+      </a>
+
+      <a class="module-card" href="Gestion de pedidos.html">
+        <span class="module-card__icon"><i class="fas fa-clipboard-check" aria-hidden="true"></i></span>
+        <small>Operacion</small>
+        <h3>Gestion de pedidos</h3>
+        <p>Administra responsables, prioridades y avance operativo.</p>
+      </a>
+
+      <a class="module-card" href="Generar reportes.html">
+        <span class="module-card__icon"><i class="fas fa-chart-pie" aria-hidden="true"></i></span>
+        <small>Admin</small>
+        <h3>Generar reportes</h3>
+        <p>Visualiza ventas, categorias, clientes y reportes del sistema.</p>
+      </a>
+
+      <a class="module-card" href="Mapa de navegacion TechStore.html">
+        <span class="module-card__icon"><i class="fas fa-sitemap" aria-hidden="true"></i></span>
+        <small>Navegacion</small>
+        <h3>Mapa del sitio</h3>
+        <p>Consulta la estructura general de la web y sus relaciones.</p>
+      </a>
+    </section>
+
+  </main>
+
+  <script src="js/techstore-app.js"></script>
+  <script src="js/techstore-shell.js"></script>
+  <script src="js/techstore-ui.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>

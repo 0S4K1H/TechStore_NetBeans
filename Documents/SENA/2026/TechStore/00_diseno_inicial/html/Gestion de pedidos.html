@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/gestion de pedidos.css">
+    <link rel="stylesheet" href="css/techstore-shell.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Gestion de pedidos | TechStore</title>
+</head>
+
+<body>
+  <div class="curve-top"></div>
+
+  <div class="code-bg" aria-hidden="true">
+    <i class="fas fa-code"></i>
+    <i class="fas fa-laptop-code"></i>
+    <i class="fab fa-js"></i>
+    <i class="fas fa-database"></i>
+    <i class="fas fa-server"></i>
+    <i class="fas fa-microchip"></i>
+    <i class="fas fa-terminal"></i>
+    <i class="fas fa-cogs"></i>
+  </div>
+
+  <main class="card">
+    <header class="header">
+      <div class="logo-container">
+        <img src="img/Techstore-logo.png" alt="Logo TechStore">
+      </div>
+      <div class="brand-icon" aria-hidden="true">
+        <i class="fas fa-clipboard-check"></i>
+      </div>
+      <h1 class="title">TECHSTORE</h1>
+      <p class="subtitle">Gestion de pedidos</p>
+    </header>
+
+    <section class="filters-panel">
+      <form id="filterForm" class="filters-form">
+        <div class="input-group">
+          <i class="fas fa-search icon"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por codigo o cliente">
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-list-check icon"></i>
+          <select id="statusFilter">
+            <option value="">Todos los estados</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="preparacion">Preparacion</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-flag icon"></i>
+          <select id="priorityFilter">
+            <option value="">Todas las prioridades</option>
+            <option value="alta">Alta</option>
+            <option value="media">Media</option>
+            <option value="baja">Baja</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-accept">
+          <i class="fas fa-filter"></i> Filtrar
+        </button>
+        <button type="button" id="clearBtn" class="btn-cancel">
+          <i class="fas fa-eraser"></i> Limpiar
+        </button>
+      </form>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span>Total pedidos</span>
+        <strong id="statTotal">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Pendientes</span>
+        <strong id="statPending">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Enviados</span>
+        <strong id="statShipped">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Entregados</span>
+        <strong id="statDelivered">0</strong>
+      </article>
+    </section>
+
+    <section class="layout">
+      <section class="orders-panel">
+        <h2 class="section-title">Listado de pedidos</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Empleado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="detail-panel">
+        <h2 class="section-title">Detalle y gestion</h2>
+        <div id="detailBox" class="detail-box">
+          <div class="empty-state">
+            <i class="fas fa-box-open"></i>
+            <p>Selecciona un pedido para gestionar.</p>
+          </div>
+        </div>
+
+        <form id="updateForm" class="update-form">
+          <h3>Actualizar pedido</h3>
+          <div class="input-group">
+            <i class="fas fa-list-check icon"></i>
+            <select id="newStatus">
+              <option value="">Nuevo estado</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="preparacion">Preparacion</option>
+              <option value="enviado">Enviado</option>
+              <option value="entregado">Entregado</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user-tie icon"></i>
+            <select id="newEmployee">
+              <option value="">Asignar empleado</option>
+              <option value="Ana Torres">Ana Torres</option>
+              <option value="Carlos Ruiz">Carlos Ruiz</option>
+              <option value="Luisa Gomez">Luisa Gomez</option>
+              <option value="Miguel Vega">Miguel Vega</option>
+            </select>
+          </div>
+          <textarea id="newNote" rows="3" placeholder="Nota de gestion (opcional)"></textarea>
+
+          <div class="actions">
+            <button type="submit" class="btn-secondary">
+              <i class="fas fa-floppy-disk"></i> Guardar cambios
+            </button>
+            <button type="button" id="nextStatusBtn" class="btn-accept">
+              <i class="fas fa-forward-step"></i> Siguiente estado
+            </button>
+          </div>
+        </form>
+      </aside>
+    </section>
+
+    <p id="message">Gestiona pedidos, empleados responsables y estados de entrega.</p>
+  </main>
+
+    <script src="js/techstore-app.js"></script>
+  <script src="js/techstore-shell.js"></script>
+  <script src="js/techstore-ui.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+
+</html>
+

@@ -2,10 +2,14 @@ package com.techstore.web.dao;
 
 import com.techstore.web.model.Usuario;
 import com.techstore.web.util.Conexion;
+import com.techstore.web.util.PasswordUtil;
+import com.techstore.web.util.RetrySupport;
+import com.techstore.web.util.RoleUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +30,6 @@ public class UsuarioDAO {
                 FROM usuarios
                 WHERE activo = 1
                   AND (LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?))
-                  AND password_demo = ?
                 """;
 
         String usuarioNormalizado = identificador == null ? "" : identificador.trim();
@@ -36,14 +39,67 @@ public class UsuarioDAO {
             return null;
         }
 
+        Usuario usuario;
         try (Connection conexion = Conexion.getConnection();
                 PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, usuarioNormalizado);
             ps.setString(2, usuarioNormalizado);
-            ps.setString(3, passwordNormalizado);
 
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next() ? mapearUsuario(rs) : null;
+                if (!rs.next()) {
+                    return null;
+                }
+                usuario = mapearUsuario(rs);
+            }
+        }
+
+        String almacenada = usuario.getPasswordDemo();
+        if (PasswordUtil.isHashed(almacenada)) {
+            return PasswordUtil.verify(passwordNormalizado, almacenada) ? usuario : null;
+        }
+
+        // Cuenta legacy con password_demo en texto plano (datos sembrados sin migrar):
+        // valida contra el valor guardado y, si coincide, migra a bcrypt de inmediato.
+        if (!almacenada.equals(passwordNormalizado)) {
+            return null;
+        }
+        String hasheada = PasswordUtil.hash(passwordNormalizado);
+        actualizarPasswordHash(usuario.getIdUsuario(), hasheada);
+        usuario.setPasswordDemo(hasheada);
+        return usuario;
+    }
+
+    private void actualizarPasswordHash(String idUsuario, String passwordHasheada) throws SQLException {
+        String sql = "UPDATE usuarios SET password_demo = ? WHERE id_usuario = ?";
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, passwordHasheada);
+            ps.setString(2, idUsuario);
+            ps.executeUpdate();
+        }
+    }
+
+    /** Resuelve un identificador (username o email) al id_usuario canónico de la cuenta activa, o null si no existe. */
+    public String idCanonico(String identificador) throws SQLException {
+        String sql = """
+                SELECT id_usuario
+                FROM usuarios
+                WHERE activo = 1
+                  AND (LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?))
+                """;
+
+        String normalizado = identificador == null ? "" : identificador.trim();
+        if (normalizado.isBlank()) {
+            return null;
+        }
+
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, normalizado);
+            ps.setString(2, normalizado);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getString("id_usuario") : null;
             }
         }
     }
@@ -141,6 +197,26 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     * Genera el id_usuario y crea la cuenta, reintentando si otra inserción concurrente
+     * ya tomó el id calculado (SELECT MAX(id)+1 no es atómico: bajo registros
+     * simultáneos dos solicitudes pueden calcular el mismo próximo id_usuario).
+     */
+    public Usuario crearConIdAutomatico(Usuario usuario) throws SQLException {
+        SQLIntegrityConstraintViolationException ultimoError = null;
+        for (int intento = 0; intento < 20; intento++) {
+            usuario.setIdUsuario(siguienteIdUsuario());
+            try {
+                crear(usuario);
+                return usuario;
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                ultimoError = ex;
+                RetrySupport.esperarBackoffAleatorio(intento);
+            }
+        }
+        throw ultimoError;
+    }
+
     public boolean crear(Usuario usuario) throws SQLException {
         String sql = """
                 INSERT INTO usuarios (id_usuario, username, password_demo, rol, nombre, email, ciudad, activo)
@@ -151,7 +227,7 @@ public class UsuarioDAO {
                 PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, usuario.getIdUsuario());
             ps.setString(2, usuario.getUsername());
-            ps.setString(3, usuario.getPasswordDemo());
+            ps.setString(3, hashSiHaceFalta(usuario.getPasswordDemo()));
             ps.setString(4, usuario.getRol());
             ps.setString(5, usuario.getNombre());
             ps.setString(6, usuario.getEmail());
@@ -171,7 +247,7 @@ public class UsuarioDAO {
         try (Connection conexion = Conexion.getConnection();
                 PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, usuario.getUsername());
-            ps.setString(2, usuario.getPasswordDemo());
+            ps.setString(2, hashSiHaceFalta(usuario.getPasswordDemo()));
             ps.setString(3, usuario.getRol());
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getEmail());
@@ -201,13 +277,17 @@ public class UsuarioDAO {
                 rs.getString("id_usuario"),
                 rs.getString("username"),
                 rs.getString("password_demo"),
-                rs.getString("rol"),
+                RoleUtil.canonical(rs.getString("rol")),
                 rs.getString("nombre"),
                 rs.getString("email"),
                 rs.getString("ciudad"),
                 rs.getInt("activo"),
                 rs.getTimestamp("fecha_registro")
         );
+    }
+
+    private String hashSiHaceFalta(String password) {
+        return PasswordUtil.isHashed(password) ? password : PasswordUtil.hash(password);
     }
 
     private int siguienteSecuencia(String sql) throws SQLException {

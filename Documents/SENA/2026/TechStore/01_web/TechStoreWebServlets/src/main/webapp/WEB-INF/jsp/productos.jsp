@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Producto" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Producto,com.techstore.web.util.Html" %>
 <%
     List<Producto> productos = (List<Producto>) request.getAttribute("productos");
     if (productos == null) {
@@ -40,10 +40,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -51,7 +51,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar producto</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, código, nombre o proveedor">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, código, nombre o proveedor">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -85,11 +85,11 @@
                 <% } else { %>
                     <% for (Producto producto : productos) { %>
                         <tr>
-                            <td><%= producto.getIdProducto() %></td>
-                            <td><%= producto.getCodigoInv() %></td>
-                            <td><%= producto.getProveedor() %></td>
-                            <td><%= producto.getNombre() %></td>
-                            <td><%= producto.getCategoria() %></td>
+                            <td><%= Html.escape(producto.getIdProducto()) %></td>
+                            <td><%= Html.escape(producto.getCodigoInv()) %></td>
+                            <td><%= Html.escape(producto.getProveedor()) %></td>
+                            <td><%= Html.escape(producto.getNombre()) %></td>
+                            <td><%= Html.escape(producto.getCategoria()) %></td>
                             <td>$ <%= producto.getPrecio() %></td>
                             <td><%= producto.getStock() %></td>
                             <td>
@@ -100,10 +100,10 @@
                             <td><%= producto.getFechaCreacion() %></td>
                             <td>
                                 <div class="row-actions">
-                                    <a class="link-action" href="<%= contextPath %>/productos?accion=editar&id=<%= producto.getIdProducto() %>">Editar</a>
+                                    <a class="link-action" href="<%= contextPath %>/productos?accion=editar&id=<%= Html.escape(producto.getIdProducto()) %>">Editar</a>
                                     <form method="post" action="<%= contextPath %>/productos" onsubmit="return confirm('¿Deseas inactivar este producto?');">
                                         <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= producto.getIdProducto() %>">
+                                        <input type="hidden" name="id" value="<%= Html.escape(producto.getIdProducto()) %>">
                                         <button class="link-action link-action--danger" type="submit">Inactivar</button>
                                     </form>
                                 </div>

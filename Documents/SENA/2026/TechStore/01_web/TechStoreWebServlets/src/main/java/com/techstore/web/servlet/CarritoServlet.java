@@ -4,6 +4,7 @@ import com.techstore.web.dao.CarritoDAO;
 import com.techstore.web.dao.UsuarioDAO;
 import com.techstore.web.model.Carrito;
 import com.techstore.web.model.Usuario;
+import com.techstore.web.util.ApiSupport;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -69,6 +70,14 @@ public class CarritoServlet extends HttpServlet {
         String filtro = request.getParameter("q");
         List<Carrito> carritos = carritoDAO.listar(filtro);
 
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion != null && !ApiSupport.isInterno(sesion)) {
+            // Un cliente solo ve sus propios carritos en el listado.
+            carritos = carritos.stream()
+                    .filter(c -> sesion.getIdUsuario().equals(c.getIdUsuario()))
+                    .toList();
+        }
+
         request.setAttribute("carritos", carritos);
         request.setAttribute("filtro", filtro == null ? "" : filtro);
         reenviar(request, response, LISTA_JSP);
@@ -96,6 +105,10 @@ public class CarritoServlet extends HttpServlet {
             redirigirConMensaje(request, response, "carritos", "error", "No se encontró el carrito solicitado.");
             return;
         }
+        if (!puedeAcceder(request, carrito.getIdUsuario())) {
+            redirigirConMensaje(request, response, "carritos", "error", "No tienes permiso para ver este carrito.");
+            return;
+        }
 
         mostrarFormulario(request, response, carrito, "editar", "Editar carrito");
     }
@@ -105,8 +118,24 @@ public class CarritoServlet extends HttpServlet {
         String modo = valor(request.getParameter("modo"), "crear");
         Carrito carrito = construirCarrito(request);
 
-        if (!"editar".equalsIgnoreCase(modo)) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            redirigirConMensaje(request, response, "carritos", "error", "Debes iniciar sesión para continuar.");
+            return;
+        }
+
+        if ("editar".equalsIgnoreCase(modo)) {
+            Carrito existente = carrito.getIdCarrito() == null ? null : carritoDAO.buscarPorId(carrito.getIdCarrito());
+            if (existente == null || !puedeAcceder(request, existente.getIdUsuario())) {
+                redirigirConMensaje(request, response, "carritos", "error", "No tienes permiso para editar este carrito.");
+                return;
+            }
+        } else {
             carrito.setIdCarrito(carritoDAO.siguienteIdCarrito());
+            if (!ApiSupport.isInterno(sesion)) {
+                // Un cliente solo puede crear carritos a su propio nombre.
+                carrito.setIdUsuario(sesion.getIdUsuario());
+            }
         }
 
         String validacion = validar(carrito);
@@ -149,6 +178,12 @@ public class CarritoServlet extends HttpServlet {
         }
 
         try {
+            Carrito existente = carritoDAO.buscarPorId(idCarrito);
+            if (existente == null || !puedeAcceder(request, existente.getIdUsuario())) {
+                redirigirConMensaje(request, response, "carritos", "error", "No tienes permiso para cerrar este carrito.");
+                return;
+            }
+
             boolean exito = carritoDAO.eliminar(idCarrito);
             if (exito) {
                 redirigirConMensaje(request, response, "carritos", "mensaje", "Carrito cerrado correctamente.");
@@ -245,6 +280,15 @@ public class CarritoServlet extends HttpServlet {
 
     private String valor(String texto, String defecto) {
         return texto == null ? defecto : texto;
+    }
+
+    /** Personal interno ve/edita cualquier carrito; un cliente solo el suyo. */
+    private boolean puedeAcceder(HttpServletRequest request, String idUsuarioDueno) {
+        Usuario sesion = ApiSupport.currentUser(request);
+        if (sesion == null) {
+            return false;
+        }
+        return ApiSupport.isInterno(sesion) || sesion.getIdUsuario().equals(idUsuarioDueno);
     }
 }
 

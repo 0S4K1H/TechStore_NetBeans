@@ -12,4 +12,4 @@ $catalina = Join-Path $TomcatRoot 'bin\catalina.bat'
 Start-Process -FilePath $catalina -ArgumentList 'run' -WorkingDirectory (Join-Path $TomcatRoot 'bin') -WindowStyle Hidden
 
 Start-Sleep -Seconds 12
-Write-Host "Servidor iniciado. Abre http://localhost:8080/TechStoreWeb/"
+Write-Host "Servidor iniciado. Abre http://localhost:8080/techstore-web-servlets/ui/"

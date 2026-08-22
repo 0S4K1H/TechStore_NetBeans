@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Producto,com.techstore.web.model.Proveedor" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Producto,com.techstore.web.model.Proveedor,com.techstore.web.util.Html" %>
 <%
     Producto producto = (Producto) request.getAttribute("producto");
     if (producto == null) {
@@ -45,7 +45,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -55,12 +55,12 @@
 
             <label class="field">
                 <span>ID producto</span>
-                <input type="text" name="idProducto" value="<%= producto.getIdProducto() == null ? "" : producto.getIdProducto() %>" readonly required>
+                <input type="text" name="idProducto" value="<%= Html.escape(producto.getIdProducto()) %>" readonly required>
             </label>
 
             <label class="field">
                 <span>Código inventario</span>
-                <input type="text" name="codigoInv" value="<%= producto.getCodigoInv() == null ? "" : producto.getCodigoInv() %>" <%= creacion ? "readonly" : "" %> required>
+                <input type="text" name="codigoInv" value="<%= Html.escape(producto.getCodigoInv()) %>" <%= creacion ? "readonly" : "" %> required>
             </label>
 
             <% if (creacion) { %>
@@ -74,8 +74,8 @@
                 <select name="idProveedor" required>
                     <option value="">Seleccione un proveedor</option>
                     <% for (Proveedor proveedor : proveedores) { %>
-                        <option value="<%= proveedor.getIdProveedor() %>" <%= proveedor.getIdProveedor().equals(producto.getIdProveedor()) ? "selected" : "" %>>
-                            <%= proveedor.getIdProveedor() %> - <%= proveedor.getNombre() %>
+                        <option value="<%= Html.escape(proveedor.getIdProveedor()) %>" <%= proveedor.getIdProveedor().equals(producto.getIdProveedor()) ? "selected" : "" %>>
+                            <%= Html.escape(proveedor.getIdProveedor()) %> - <%= Html.escape(proveedor.getNombre()) %>
                         </option>
                     <% } %>
                 </select>
@@ -83,7 +83,7 @@
 
             <label class="field">
                 <span>Nombre</span>
-                <input type="text" name="nombre" value="<%= producto.getNombre() == null ? "" : producto.getNombre() %>" required>
+                <input type="text" name="nombre" value="<%= Html.escape(producto.getNombre()) %>" required>
             </label>
 
             <label class="field">

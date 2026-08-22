@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Pedido,com.techstore.web.model.Usuario" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Pedido,com.techstore.web.model.Usuario,com.techstore.web.util.Html" %>
 <%
     Pedido pedido = (Pedido) request.getAttribute("pedido");
     if (pedido == null) {
@@ -47,7 +47,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -57,7 +57,7 @@
 
             <label class="field">
                 <span>ID pedido</span>
-                <input type="text" name="idPedido" value="<%= pedido.getIdPedido() == null ? "" : pedido.getIdPedido() %>" readonly required>
+                <input type="text" name="idPedido" value="<%= Html.escape(pedido.getIdPedido()) %>" readonly required>
             </label>
 
             <label class="field">
@@ -65,8 +65,8 @@
                 <select name="idUsuarioCliente" required>
                     <option value="">-- Selecciona --</option>
                     <% for (Usuario cliente : clientes) { %>
-                        <option value="<%= cliente.getIdUsuario() %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(pedido.getIdUsuarioCliente()) ? "selected" : "" %>>
-                            <%= cliente.getNombre() %> (<%= cliente.getIdUsuario() %>)
+                        <option value="<%= Html.escape(cliente.getIdUsuario()) %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(pedido.getIdUsuarioCliente()) ? "selected" : "" %>>
+                            <%= Html.escape(cliente.getNombre()) %> (<%= Html.escape(cliente.getIdUsuario()) %>)
                         </option>
                     <% } %>
                 </select>
@@ -77,8 +77,8 @@
                 <select name="idUsuarioEmpleado">
                     <option value="">Sin asignar</option>
                     <% for (Usuario empleado : empleados) { %>
-                        <option value="<%= empleado.getIdUsuario() %>" <%= empleado.getIdUsuario() != null && empleado.getIdUsuario().equals(pedido.getIdUsuarioEmpleado()) ? "selected" : "" %>>
-                            <%= empleado.getNombre() %> (<%= empleado.getIdUsuario() %>)
+                        <option value="<%= Html.escape(empleado.getIdUsuario()) %>" <%= empleado.getIdUsuario() != null && empleado.getIdUsuario().equals(pedido.getIdUsuarioEmpleado()) ? "selected" : "" %>>
+                            <%= Html.escape(empleado.getNombre()) %> (<%= Html.escape(empleado.getIdUsuario()) %>)
                         </option>
                     <% } %>
                 </select>
@@ -86,32 +86,32 @@
 
             <label class="field">
                 <span>Empleado asignado</span>
-                <input type="text" name="empleadoAsignado" value="<%= pedido.getEmpleadoAsignado() == null ? "Sin asignar" : pedido.getEmpleadoAsignado() %>">
+                <input type="text" name="empleadoAsignado" value="<%= pedido.getEmpleadoAsignado() == null ? "Sin asignar" : Html.escape(pedido.getEmpleadoAsignado()) %>">
             </label>
 
             <label class="field">
                 <span>Nombre cliente</span>
-                <input type="text" name="nombreCliente" value="<%= pedido.getNombreCliente() == null ? "" : pedido.getNombreCliente() %>" required>
+                <input type="text" name="nombreCliente" value="<%= Html.escape(pedido.getNombreCliente()) %>" required>
             </label>
 
             <label class="field">
                 <span>Correo cliente</span>
-                <input type="email" name="emailCliente" value="<%= pedido.getEmailCliente() == null ? "" : pedido.getEmailCliente() %>" required>
+                <input type="email" name="emailCliente" value="<%= Html.escape(pedido.getEmailCliente()) %>" required>
             </label>
 
             <label class="field">
                 <span>Teléfono</span>
-                <input type="text" name="telefono" value="<%= pedido.getTelefono() == null ? "" : pedido.getTelefono() %>" required>
+                <input type="text" name="telefono" value="<%= Html.escape(pedido.getTelefono()) %>" required>
             </label>
 
             <label class="field">
                 <span>Ciudad</span>
-                <input type="text" name="ciudad" value="<%= pedido.getCiudad() == null ? "" : pedido.getCiudad() %>" required>
+                <input type="text" name="ciudad" value="<%= Html.escape(pedido.getCiudad()) %>" required>
             </label>
 
             <label class="field">
                 <span>Dirección</span>
-                <input type="text" name="direccion" value="<%= pedido.getDireccion() == null ? "" : pedido.getDireccion() %>" required>
+                <input type="text" name="direccion" value="<%= Html.escape(pedido.getDireccion()) %>" required>
             </label>
 
             <label class="field">
@@ -126,7 +126,7 @@
 
             <label class="field">
                 <span>Transportadora</span>
-                <input type="text" name="transportadora" value="<%= pedido.getTransportadora() == null ? "" : pedido.getTransportadora() %>" required>
+                <input type="text" name="transportadora" value="<%= Html.escape(pedido.getTransportadora()) %>" required>
             </label>
 
             <label class="field">
@@ -166,12 +166,12 @@
 
             <label class="field">
                 <span>Método de pago</span>
-                <input type="text" name="metodoPago" value="<%= pedido.getMetodoPago() == null ? "" : pedido.getMetodoPago() %>" required>
+                <input type="text" name="metodoPago" value="<%= Html.escape(pedido.getMetodoPago()) %>" required>
             </label>
 
             <label class="field">
                 <span>Nota</span>
-                <textarea name="nota" rows="4"><%= pedido.getNota() == null ? "" : pedido.getNota() %></textarea>
+                <textarea name="nota" rows="4"><%= Html.escape(pedido.getNota()) %></textarea>
             </label>
 
             <div class="form-actions">

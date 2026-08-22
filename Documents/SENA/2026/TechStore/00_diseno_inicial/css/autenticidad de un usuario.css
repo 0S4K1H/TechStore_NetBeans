@@ -1,0 +1,282 @@
+/* ======================================
+   FONDO GENERAL
+====================================== */
+body {
+  background: #f4f6f7;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ======================================
+   CURVA SUPERIOR TECHSTORE
+====================================== */
+.curve-top {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1800px, 140%);
+  height: 220px;
+  background: #2A2A2A;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  z-index: -1;
+}
+
+/* ======================================
+   FIGURAS DE PROGRAMACIÓN EN EL FONDO
+====================================== */
+.code-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.code-bg i {
+  position: absolute;
+  font-size: 24px;
+  color: rgba(83, 224, 213, 0.15);
+  animation: float 15s infinite linear;
+}
+
+.code-bg i:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+.code-bg i:nth-child(2) { top: 20%; right: 10%; animation-delay: -2s; }
+.code-bg i:nth-child(3) { top: 40%; left: 15%; animation-delay: -4s; }
+.code-bg i:nth-child(4) { bottom: 30%; right: 20%; animation-delay: -6s; }
+.code-bg i:nth-child(5) { bottom: 15%; left: 25%; animation-delay: -8s; }
+.code-bg i:nth-child(6) { top: 60%; right: 30%; animation-delay: -10s; }
+.code-bg i:nth-child(7) { top: 75%; left: 10%; animation-delay: -12s; }
+.code-bg i:nth-child(8) { bottom: 45%; right: 15%; animation-delay: -14s; }
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(20px, 15px) rotate(90deg);
+  }
+  50% {
+    transform: translate(0, 30px) rotate(180deg);
+  }
+  75% {
+    transform: translate(-20px, 15px) rotate(270deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+/* ======================================
+   TARJETA CENTRAL
+====================================== */
+.card {
+  background: #ffffff;
+  width: 360px;
+  padding: 25px;
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  text-align: center;
+  z-index: 5;
+}
+
+/* ======================================
+   LOGO TECHSTORE
+====================================== */
+.logo-container {
+  width: 160px;
+  margin: 0 auto 5px auto;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ======================================
+   ICONO CENTRAL DUAL
+====================================== */
+.central-icon {
+  font-size: 55px;
+  color: #53E0D5;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.central-icon .brain {
+  font-size: 32px;
+  position: absolute;
+  right: -20px;
+  bottom: -5px;
+  color: #2A2A2A;
+}
+
+/* ======================================
+   TÍTULOS
+====================================== */
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2A2A2A;
+  margin-top: 5px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #555;
+  margin-top: -5px;
+}
+
+.access-note {
+  margin: 4px 0 18px 0;
+  color: #5f7281;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ======================================
+   INPUTS
+====================================== */
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #eaf2f8;
+  border-radius: 25px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #d6eaf8;
+  transition: all 0.3s ease;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 12px;
+  color: #2A2A2A;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+  color: #2d3436;
+}
+
+.toggle-password {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-left: auto;
+  cursor: pointer;
+  color: #7f8c8d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover {
+  color: #2c3e50;
+}
+
+/* ======================================
+   BOTONES
+====================================== */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-accept {
+  width: 48%;
+  background: #53E0D5;
+  border: none;
+  color: #000;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-cancel {
+  width: 48%;
+  background: #d1d1d1;
+  border: none;
+  color: #000;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-accept:hover { 
+  background: #33d0c5; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(83, 224, 213, 0.4);
+}
+.btn-cancel:hover { 
+  background: #b5b5b5; 
+  transform: translateY(-2px);
+}
+
+/* ======================================
+   TEXTO DE OLVIDÓ CONTRASEÑA
+====================================== */
+.forgot {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #2A2A2A;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.forgot:hover { 
+  text-decoration: underline; 
+  color: #53E0D5;
+}
+
+/* ======================================
+   MENSAJE DE VALIDACIÓN
+====================================== */
+#message {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+}
+
+.auth-card #message {
+  justify-content: center;
+  text-align: center;
+}

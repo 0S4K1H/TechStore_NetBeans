@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.TicketSoporte,com.techstore.web.model.Usuario,java.util.function.Function,java.sql.Timestamp" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.TicketSoporte,com.techstore.web.model.Usuario,java.util.function.Function,java.sql.Timestamp,com.techstore.web.util.Html" %>
 <%
     TicketSoporte ticket = (TicketSoporte) request.getAttribute("ticket");
     if (ticket == null) {
@@ -47,7 +47,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -57,7 +57,7 @@
 
             <label class="field">
                 <span>ID ticket</span>
-                <input type="text" name="idTicket" value="<%= ticket.getIdTicket() == null ? "" : ticket.getIdTicket() %>" readonly required>
+                <input type="text" name="idTicket" value="<%= Html.escape(ticket.getIdTicket()) %>" readonly required>
             </label>
 
             <label class="field">
@@ -65,8 +65,8 @@
                 <select name="idUsuarioCliente" required>
                     <option value="">-- Selecciona --</option>
                     <% for (Usuario cliente : clientes) { %>
-                        <option value="<%= cliente.getIdUsuario() %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(ticket.getIdUsuarioCliente()) ? "selected" : "" %>>
-                            <%= cliente.getNombre() %> (<%= cliente.getIdUsuario() %>)
+                        <option value="<%= Html.escape(cliente.getIdUsuario()) %>" <%= cliente.getIdUsuario() != null && cliente.getIdUsuario().equals(ticket.getIdUsuarioCliente()) ? "selected" : "" %>>
+                            <%= Html.escape(cliente.getNombre()) %> (<%= Html.escape(cliente.getIdUsuario()) %>)
                         </option>
                     <% } %>
                 </select>
@@ -74,12 +74,12 @@
 
             <label class="field">
                 <span>Asunto</span>
-                <input type="text" name="asunto" value="<%= ticket.getAsunto() == null ? "" : ticket.getAsunto() %>" required>
+                <input type="text" name="asunto" value="<%= Html.escape(ticket.getAsunto()) %>" required>
             </label>
 
             <label class="field field--full">
                 <span>Mensaje</span>
-                <textarea name="mensaje" rows="5" required><%= ticket.getMensaje() == null ? "" : ticket.getMensaje() %></textarea>
+                <textarea name="mensaje" rows="5" required><%= Html.escape(ticket.getMensaje()) %></textarea>
             </label>
 
             <label class="field">

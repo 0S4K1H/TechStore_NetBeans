@@ -2,6 +2,8 @@ package com.techstore.web.servlet;
 
 import com.techstore.web.dao.UsuarioDAO;
 import com.techstore.web.model.Usuario;
+import com.techstore.web.util.LoginRateLimiter;
+import com.techstore.web.util.RoleUtil;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -50,12 +52,22 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+        String claveLimite = resolverClaveLimite(usuarioIngresado);
+
+        if (LoginRateLimiter.estaBloqueado(claveLimite)) {
+            redirigirConError(request, response, "Demasiados intentos fallidos. Intenta de nuevo en unos minutos.");
+            return;
+        }
+
         try {
             Usuario usuario = usuarioDAO.autenticar(usuarioIngresado, password);
             if (usuario == null) {
+                LoginRateLimiter.registrarFallo(claveLimite);
                 redirigirConError(request, response, "Usuario o contraseña inválidos.");
                 return;
             }
+            RoleUtil.canonicalize(usuario);
+            LoginRateLimiter.registrarExito(claveLimite);
 
             HttpSession session = request.getSession(true);
             session.setMaxInactiveInterval(60 * 60);
@@ -84,6 +96,16 @@ public class LoginServlet extends HttpServlet {
 
     private String valor(String texto, String defecto) {
         return texto == null ? defecto : texto.trim();
+    }
+
+    /** Usa el id_usuario canónico como clave del rate limiter para que alternar username/email no evada el bloqueo. */
+    private String resolverClaveLimite(String identificador) {
+        try {
+            String idCanonico = usuarioDAO.idCanonico(identificador);
+            return idCanonico != null ? idCanonico : identificador.trim().toLowerCase();
+        } catch (SQLException ex) {
+            return identificador.trim().toLowerCase();
+        }
     }
 
     private String destinoSeguro(String redirect, String defecto) {

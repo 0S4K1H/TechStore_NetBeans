@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Usuario" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.Usuario,com.techstore.web.util.Html" %>
 <%
     List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
     if (usuarios == null) {
@@ -39,10 +39,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -50,7 +50,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar usuario</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, usuario, rol, nombre, correo o ciudad">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, usuario, rol, nombre, correo o ciudad">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -83,12 +83,12 @@
                 <% } else { %>
                     <% for (Usuario usuario : usuarios) { %>
                         <tr>
-                            <td><%= usuario.getIdUsuario() %></td>
-                            <td><%= usuario.getUsername() %></td>
-                            <td><%= usuario.getRol() %></td>
-                            <td><%= usuario.getNombre() %></td>
-                            <td><%= usuario.getEmail() %></td>
-                            <td><%= usuario.getCiudad() %></td>
+                            <td><%= Html.escape(usuario.getIdUsuario()) %></td>
+                            <td><%= Html.escape(usuario.getUsername()) %></td>
+                            <td><%= Html.escape(usuario.getRol()) %></td>
+                            <td><%= Html.escape(usuario.getNombre()) %></td>
+                            <td><%= Html.escape(usuario.getEmail()) %></td>
+                            <td><%= Html.escape(usuario.getCiudad()) %></td>
                             <td>
                                 <span class="badge <%= usuario.getActivo() == 1 ? "badge--success" : "badge--danger" %>">
                                     <%= usuario.getActivo() == 1 ? "SI" : "NO" %>
@@ -97,10 +97,10 @@
                             <td><%= usuario.getFechaRegistro() %></td>
                             <td>
                                 <div class="row-actions">
-                                    <a class="link-action" href="<%= contextPath %>/usuarios?accion=editar&id=<%= usuario.getIdUsuario() %>">Editar</a>
+                                    <a class="link-action" href="<%= contextPath %>/usuarios?accion=editar&id=<%= Html.escape(usuario.getIdUsuario()) %>">Editar</a>
                                     <form method="post" action="<%= contextPath %>/usuarios" onsubmit="return confirm('¿Deseas inactivar este usuario?');">
                                         <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= usuario.getIdUsuario() %>">
+                                        <input type="hidden" name="id" value="<%= Html.escape(usuario.getIdUsuario()) %>">
                                         <button class="link-action link-action--danger" type="submit">Inactivar</button>
                                     </form>
                                 </div>

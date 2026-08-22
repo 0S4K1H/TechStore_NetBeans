@@ -31,6 +31,17 @@ public class ProductoDAO {
         return "INV-" + (siguiente + 1);
     }
 
+    public int contarStockBajo(int umbral) throws SQLException {
+        String sql = "SELECT COUNT(*) AS total FROM productos WHERE activo = 1 AND stock <= ?";
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setInt(1, umbral);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getInt("total") : 0;
+            }
+        }
+    }
+
     public List<Producto> listar(String filtro) throws SQLException {
         StringBuilder sql = new StringBuilder("""
                 SELECT p.id_producto, p.codigo_inv, p.id_proveedor, pr.nombre AS proveedor,

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Mapa de navegacion jerarquico para TechStore Mobile</title>
+  <desc id="desc">Arbol jerarquico con secciones principales y secundarias de la aplicacion movil TechStore.</desc>
+  <defs>
+    <linearGradient id="header" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e8f39"/>
+      <stop offset="100%" stop-color="#12b247"/>
+    </linearGradient>
+    <linearGradient id="root" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1f2f"/>
+      <stop offset="100%" stop-color="#153f59"/>
+    </linearGradient>
+    <style>
+      .bg { fill: #f6fbf8; }
+      .line { stroke: #8fbfa1; stroke-width: 3; fill: none; }
+      .title { font: 700 34px Arial, sans-serif; fill: #ffffff; }
+      .subtitle { font: 500 18px Arial, sans-serif; fill: #daf5e2; }
+      .node-title { font: 700 18px Arial, sans-serif; fill: #173042; }
+      .node-copy { font: 500 13px Arial, sans-serif; fill: #49606f; }
+      .section-copy { font: 500 14px Arial, sans-serif; fill: #ffffff; }
+      .pill { fill: #ffffff; opacity: 0.16; }
+      .label { font: 700 16px Arial, sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1180" rx="26"/>
+  <rect x="32" y="28" width="1536" height="116" rx="24" fill="url(#header)"/>
+  <text class="title" x="72" y="78">Mapa de navegacion - TechStore Mobile</text>
+  <text class="subtitle" x="72" y="114">Tipo sugerido: estructura compuesta con base jerarquica para app movil de comercio electronico.</text>
+  <rect class="pill" x="1180" y="54" width="320" height="56" rx="28"/>
+  <text class="label" x="1222" y="89">Cliente · Usabilidad · Accesibilidad</text>
+
+  <rect x="620" y="182" width="360" height="94" rx="24" fill="url(#root)"/>
+  <text class="label" x="722" y="221">TechStore Mobile</text>
+  <text class="section-copy" x="668" y="248">Punto de entrada principal de la APP</text>
+
+  <path class="line" d="M800 276 V336"/>
+  <path class="line" d="M300 402 H1300"/>
+
+  <path class="line" d="M300 336 V402"/>
+  <path class="line" d="M540 336 V402"/>
+  <path class="line" d="M780 336 V402"/>
+  <path class="line" d="M1020 336 V402"/>
+  <path class="line" d="M1260 336 V402"/>
+
+  <g>
+    <rect x="170" y="402" width="260" height="82" rx="22" fill="#ffffff" stroke="#cfe8d6"/>
+    <text class="node-title" x="264" y="438">Acceso</text>
+    <text class="node-copy" x="213" y="462">Inicio de sesion y registro</text>
+    <path class="line" d="M300 484 V540"/>
+    <path class="line" d="M160 540 H440"/>
+    <path class="line" d="M160 540 V580"/>
+    <path class="line" d="M300 540 V580"/>
+    <path class="line" d="M440 540 V580"/>
+    <rect x="70" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="96" y="620">Iniciar sesion</text>
+    <rect x="210" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="272" y="620">Registro</text>
+    <rect x="350" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="373" y="620">Recuperar acceso</text>
+  </g>
+
+  <g>
+    <rect x="410" y="402" width="260" height="82" rx="22" fill="#ffffff" stroke="#cfe8d6"/>
+    <text class="node-title" x="478" y="438">Inicio y catalogo</text>
+    <text class="node-copy" x="451" y="462">Exploracion de productos</text>
+    <path class="line" d="M540 484 V540"/>
+    <path class="line" d="M390 540 H690"/>
+    <path class="line" d="M390 540 V580"/>
+    <path class="line" d="M540 540 V580"/>
+    <path class="line" d="M690 540 V580"/>
+    <rect x="300" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="364" y="620">Home</text>
+    <rect x="450" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="497" y="620">Categorias</text>
+    <rect x="600" y="580" width="180" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="633" y="620">Detalle producto</text>
+  </g>
+
+  <g>
+    <rect x="650" y="402" width="260" height="82" rx="22" fill="#ffffff" stroke="#cfe8d6"/>
+    <text class="node-title" x="734" y="438">Carrito</text>
+    <text class="node-copy" x="714" y="462">Compra y confirmacion</text>
+    <path class="line" d="M780 484 V540"/>
+    <path class="line" d="M620 540 H940"/>
+    <path class="line" d="M620 540 V580"/>
+    <path class="line" d="M780 540 V580"/>
+    <path class="line" d="M940 540 V580"/>
+    <rect x="530" y="580" width="190" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="566" y="620">Resumen compra</text>
+    <rect x="710" y="580" width="150" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="766" y="620">Pago</text>
+    <rect x="850" y="580" width="190" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="880" y="620">Confirmacion</text>
+  </g>
+
+  <g>
+    <rect x="890" y="402" width="260" height="82" rx="22" fill="#ffffff" stroke="#cfe8d6"/>
+    <text class="node-title" x="982" y="438">Mis pedidos</text>
+    <text class="node-copy" x="946" y="462">Historial y seguimiento</text>
+    <path class="line" d="M1020 484 V540"/>
+    <path class="line" d="M850 540 H1190"/>
+    <path class="line" d="M850 540 V580"/>
+    <path class="line" d="M1020 540 V580"/>
+    <path class="line" d="M1190 540 V580"/>
+    <rect x="760" y="580" width="190" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="809" y="620">Historial</text>
+    <rect x="950" y="580" width="140" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="972" y="620">Seguimiento</text>
+    <rect x="1080" y="580" width="220" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="1131" y="620">Detalle pedido</text>
+  </g>
+
+  <g>
+    <rect x="1130" y="402" width="260" height="82" rx="22" fill="#ffffff" stroke="#cfe8d6"/>
+    <text class="node-title" x="1202" y="438">Soporte y perfil</text>
+    <text class="node-copy" x="1179" y="462">Ayuda y datos del usuario</text>
+    <path class="line" d="M1260 484 V540"/>
+    <path class="line" d="M1080 540 H1440"/>
+    <path class="line" d="M1080 540 V580"/>
+    <path class="line" d="M1200 540 V580"/>
+    <path class="line" d="M1320 540 V580"/>
+    <path class="line" d="M1440 540 V580"/>
+    <rect x="990" y="580" width="170" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="1045" y="620">Chat</text>
+    <rect x="1120" y="580" width="150" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="1180" y="620">FAQ</text>
+    <rect x="1240" y="580" width="170" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="1273" y="620">Mi perfil</text>
+    <rect x="1380" y="580" width="170" height="70" rx="18" fill="#ffffff" stroke="#d9e7ee"/>
+    <text class="node-title" x="1423" y="620">Direcciones</text>
+  </g>
+
+  <rect x="70" y="744" width="1460" height="346" rx="28" fill="#ffffff" stroke="#d3e5db"/>
+  <text class="node-title" x="110" y="796">Orden logico sugerido del recorrido movil</text>
+  <text class="node-copy" x="110" y="826">1. Acceso o registro del usuario.</text>
+  <text class="node-copy" x="110" y="856">2. Ingreso al home con buscador, categorias visibles y productos destacados.</text>
+  <text class="node-copy" x="110" y="886">3. Consulta del detalle del producto y adicion al carrito.</text>
+  <text class="node-copy" x="110" y="916">4. Revision del resumen de compra, paso por pago y confirmacion del pedido.</text>
+  <text class="node-copy" x="110" y="946">5. Seguimiento posterior desde historial, estado del pedido, soporte y perfil.</text>
+  <text class="node-copy" x="110" y="996">Principios de usabilidad aplicados: visibilidad del estado, consistencia, feedback, botones claros, rutas cortas y contenido priorizado para pantalla movil.</text>
+  <text class="node-copy" x="110" y="1036">Principios de accesibilidad aplicados: contraste alto, areas tactiles amplias, textos legibles, labels claros, orden semantico y soporte para navegacion sencilla.</text>
+</svg>

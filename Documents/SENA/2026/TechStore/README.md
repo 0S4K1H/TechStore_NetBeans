@@ -8,7 +8,7 @@ Carpeta central del proyecto TechStore.
   Maqueta original del sitio web, documentos iniciales, assets visuales, scripts de apoyo y referencia de la versión HTML previa.
 
 - `01_web/`
-  Aplicación web funcional en Java con JSP, Servlets y JDBC.
+  Aplicación web funcional unificada: React como UI visible y Java/JSP/Servlets como backend/API.
   Módulos principales: `productos`, `proveedores`, `usuarios`, `tickets`, `pedidos` y `carritos`.
 
 - `02_java_jdbc/`
@@ -34,6 +34,12 @@ Carpeta central del proyecto TechStore.
 
 - `09_mysql_portable/`
   Instancia portátil de MySQL usada para el proyecto.
+
+## Fuente de verdad del trabajo
+
+- La version HTML de referencia para las evidencias vive en `00_diseno_inicial/html/`.
+- La version funcional del sistema vive en `01_web/TechStoreWebServlets/`.
+- Si una pagina cambia en el HTML de referencia, se debe actualizar tambien su copia canonical dentro de `TechStore/00_diseno_inicial/html/` para evitar duplicados o versiones distintas.
 
 ## Base de datos activa
 

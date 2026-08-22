@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Usuario" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Usuario,com.techstore.web.util.Html" %>
 <%
     Usuario usuario = (Usuario) request.getAttribute("usuario");
     if (usuario == null) {
@@ -41,7 +41,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -51,18 +51,18 @@
 
             <label class="field">
                 <span>ID usuario</span>
-                <input type="text" name="idUsuario" value="<%= usuario.getIdUsuario() == null ? "" : usuario.getIdUsuario() %>" readonly required>
+                <input type="text" name="idUsuario" value="<%= Html.escape(usuario.getIdUsuario()) %>" readonly required>
                 <small class="field-help">Se genera automáticamente como USR001, USR002 y así sucesivamente.</small>
             </label>
 
             <label class="field">
                 <span>Nombre de usuario</span>
-                <input type="text" name="username" value="<%= usuario.getUsername() == null ? "" : usuario.getUsername() %>" required>
+                <input type="text" name="username" value="<%= Html.escape(usuario.getUsername()) %>" required>
             </label>
 
             <label class="field">
                 <span>Contraseña demo</span>
-                <input type="text" name="passwordDemo" value="<%= usuario.getPasswordDemo() == null ? "" : usuario.getPasswordDemo() %>" required>
+                <input type="text" name="passwordDemo" value="<%= Html.escape(usuario.getPasswordDemo()) %>" required>
             </label>
 
             <label class="field">
@@ -76,17 +76,17 @@
 
             <label class="field">
                 <span>Nombre completo</span>
-                <input type="text" name="nombre" value="<%= usuario.getNombre() == null ? "" : usuario.getNombre() %>" required>
+                <input type="text" name="nombre" value="<%= Html.escape(usuario.getNombre()) %>" required>
             </label>
 
             <label class="field">
                 <span>Correo</span>
-                <input type="email" name="email" value="<%= usuario.getEmail() == null ? "" : usuario.getEmail() %>" required>
+                <input type="email" name="email" value="<%= Html.escape(usuario.getEmail()) %>" required>
             </label>
 
             <label class="field">
                 <span>Ciudad</span>
-                <input type="text" name="ciudad" value="<%= usuario.getCiudad() == null ? "" : usuario.getCiudad() %>" required>
+                <input type="text" name="ciudad" value="<%= Html.escape(usuario.getCiudad()) %>" required>
             </label>
 
             <label class="field">

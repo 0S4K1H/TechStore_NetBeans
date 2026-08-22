@@ -22,6 +22,17 @@ public class PedidoDAO {
         return String.format("PED%03d", siguiente + 1);
     }
 
+    public int contarPorEstado(String estado) throws SQLException {
+        String sql = "SELECT COUNT(*) AS total FROM pedidos WHERE estado = ?";
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, estado);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getInt("total") : 0;
+            }
+        }
+    }
+
     public List<Pedido> listar(String filtro) throws SQLException {
         StringBuilder sql = new StringBuilder("""
                 SELECT p.id_pedido, p.id_usuario_cliente, u.nombre AS cliente, p.id_usuario_empleado,
@@ -94,19 +105,24 @@ public class PedidoDAO {
         }
     }
 
-    public boolean crear(Pedido pedido) throws SQLException {
-        String sql = """
-                INSERT INTO pedidos (
-                    id_pedido, id_usuario_cliente, id_usuario_empleado, empleado_asignado,
-                    nombre_cliente, email_cliente, telefono, direccion, ciudad,
-                    fecha_pedido, fecha_estimada, transportadora,
-                    subtotal, costo_envio, descuento, total,
-                    estado, prioridad, metodo_pago, nota
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """;
+    private static final String INSERT_SQL = """
+            INSERT INTO pedidos (
+                id_pedido, id_usuario_cliente, id_usuario_empleado, empleado_asignado,
+                nombre_cliente, email_cliente, telefono, direccion, ciudad,
+                fecha_pedido, fecha_estimada, transportadora,
+                subtotal, costo_envio, descuento, total,
+                estado, prioridad, metodo_pago, nota
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
 
-        try (Connection conexion = Conexion.getConnection();
-                PreparedStatement ps = conexion.prepareStatement(sql)) {
+    public boolean crear(Pedido pedido) throws SQLException {
+        try (Connection conexion = Conexion.getConnection()) {
+            return crear(conexion, pedido);
+        }
+    }
+
+    public boolean crear(Connection conexion, Pedido pedido) throws SQLException {
+        try (PreparedStatement ps = conexion.prepareStatement(INSERT_SQL)) {
             cargarParametros(ps, pedido, false);
             return ps.executeUpdate() > 0;
         }

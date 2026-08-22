@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tech_green_900">#0B5B25</color>
+    <color name="tech_green_700">#118E3D</color>
+    <color name="tech_green_500">#22B455</color>
+    <color name="tech_mint_100">#EFFAF2</color>
+    <color name="tech_surface">#FFFFFF</color>
+    <color name="tech_surface_alt">#F5FAF7</color>
+    <color name="tech_line">#D7E3DB</color>
+    <color name="tech_text_primary">#1E2730</color>
+    <color name="tech_text_secondary">#5F6E7B</color>
+    <color name="tech_chip_fill">#E7F7EC</color>
+    <color name="tech_chip_border">#B5DCC1</color>
+    <color name="tech_banner_start">#123D55</color>
+    <color name="tech_banner_end">#1E658D</color>
+</resources>

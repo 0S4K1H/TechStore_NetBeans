@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Proveedor" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Proveedor,com.techstore.web.util.Html" %>
 <%
     Proveedor proveedor = (Proveedor) request.getAttribute("proveedor");
     if (proveedor == null) {
@@ -39,7 +39,7 @@
     </header>
 
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -49,18 +49,18 @@
 
             <label class="field">
                 <span>ID proveedor</span>
-                <input type="text" name="idProveedor" value="<%= proveedor.getIdProveedor() == null ? "" : proveedor.getIdProveedor() %>" readonly required>
+                <input type="text" name="idProveedor" value="<%= Html.escape(proveedor.getIdProveedor()) %>" readonly required>
                 <small class="field-help">Se genera automáticamente como PRV001, PRV002 y así sucesivamente.</small>
             </label>
 
             <label class="field">
                 <span>Nombre</span>
-                <input type="text" name="nombre" value="<%= proveedor.getNombre() == null ? "" : proveedor.getNombre() %>" required>
+                <input type="text" name="nombre" value="<%= Html.escape(proveedor.getNombre()) %>" required>
             </label>
 
             <label class="field">
                 <span>Correo</span>
-                <input type="email" name="email" value="<%= proveedor.getEmail() == null ? "" : proveedor.getEmail() %>" required>
+                <input type="email" name="email" value="<%= Html.escape(proveedor.getEmail()) %>" required>
             </label>
 
             <div class="form-actions">

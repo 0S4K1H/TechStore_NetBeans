@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/realizar compras.css">
+    <link rel="stylesheet" href="css/techstore-shell.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Realizar compras | TechStore</title>
+</head>
+
+<body>
+  <div class="curve-top"></div>
+
+  <div class="code-bg" aria-hidden="true">
+    <i class="fas fa-code"></i>
+    <i class="fas fa-laptop-code"></i>
+    <i class="fab fa-js"></i>
+    <i class="fas fa-database"></i>
+    <i class="fas fa-server"></i>
+    <i class="fas fa-microchip"></i>
+    <i class="fas fa-terminal"></i>
+    <i class="fas fa-cogs"></i>
+  </div>
+
+  <main class="card">
+    <header class="header">
+      <div class="logo-container">
+        <img src="img/Techstore-logo.png" alt="Logo TechStore">
+      </div>
+      <div class="brand-icon" aria-hidden="true">
+        <i class="fas fa-credit-card"></i>
+      </div>
+      <h1 class="title">TECHSTORE</h1>
+      <p class="subtitle">Realizar compras</p>
+    </header>
+
+    <section class="layout">
+      <section class="checkout-panel">
+        <h2 class="section-title">Datos de compra</h2>
+
+        <form id="checkoutForm">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="fullName">Nombre completo</label>
+              <div class="input-group">
+                <i class="fas fa-user icon"></i>
+                <input type="text" id="fullName" placeholder="Nombre del cliente">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Correo</label>
+              <div class="input-group">
+                <i class="fas fa-envelope icon"></i>
+                <input type="email" id="email" placeholder="correo@ejemplo.com">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="phone">Telefono</label>
+              <div class="input-group">
+                <i class="fas fa-phone icon"></i>
+                <input type="tel" id="phone" placeholder="3001234567">
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="address">Direccion de entrega</label>
+              <div class="input-group">
+                <i class="fas fa-location-dot icon"></i>
+                <input type="text" id="address" placeholder="Calle, carrera, numero">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="city">Ciudad</label>
+              <div class="input-group">
+                <i class="fas fa-city icon"></i>
+                <input type="text" id="city" placeholder="Ciudad">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="paymentMethod">Metodo de pago</label>
+              <div class="input-group">
+                <i class="fas fa-wallet icon"></i>
+                <select id="paymentMethod">
+                  <option value="">Selecciona un metodo</option>
+                  <option value="tarjeta">Tarjeta debito/credito</option>
+                  <option value="transferencia">Transferencia bancaria</option>
+                  <option value="billetera">Billetera digital</option>
+                  <option value="contraentrega">Pago contraentrega</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="note">Nota para entrega (opcional)</label>
+              <textarea id="note" rows="3" placeholder="Ejemplo: entregar en recepcion"></textarea>
+            </div>
+          </div>
+
+          <div class="coupon-box">
+            <div class="field coupon-field">
+              <label for="coupon">Cupon</label>
+              <div class="input-group">
+                <i class="fas fa-ticket icon"></i>
+                <input type="text" id="coupon" placeholder="TECH10">
+              </div>
+            </div>
+            <button type="button" id="applyCouponBtn" class="btn-secondary">
+              <i class="fas fa-check"></i> Aplicar
+            </button>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="clearBtn" class="btn-cancel">
+              <i class="fas fa-eraser"></i> Limpiar
+            </button>
+            <button type="submit" class="btn-accept">
+              <i class="fas fa-bag-shopping"></i> Confirmar compra
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="summary-panel">
+        <h2 class="section-title">Resumen del pedido</h2>
+        <ul id="itemsList" class="items-list"></ul>
+
+        <div class="totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <strong id="subtotalValue">$0</strong>
+          </div>
+          <div class="row">
+            <span>Envio</span>
+            <strong id="shippingValue">$0</strong>
+          </div>
+          <div class="row">
+            <span>Descuento</span>
+            <strong id="discountValue">$0</strong>
+          </div>
+          <div class="row grand-total">
+            <span>Total a pagar</span>
+            <strong id="totalValue">$0</strong>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <p id="message">Completa tus datos para finalizar la compra.</p>
+  </main>
+
+    <script src="js/techstore-app.js"></script>
+  <script src="js/techstore-shell.js"></script>
+  <script src="js/techstore-ui.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+
+</html>
+

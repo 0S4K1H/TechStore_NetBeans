@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TechStore Mobile</string>
+    <string name="login_title">Bienvenido a TechStore</string>
+    <string name="login_subtitle">Compra tecnologia, revisa tus pedidos y gestiona tu cuenta desde el movil.</string>
+    <string name="register_title">Crea tu cuenta</string>
+    <string name="register_subtitle">Registra tus datos para guardar pedidos, direcciones y soporte.</string>
+    <string name="home_title">Hola, Mateo</string>
+    <string name="home_subtitle">Encuentra equipos, accesorios y ofertas destacadas.</string>
+    <string name="login_success">Inicio de sesion simulado. Bienvenido a TechStore Mobile.</string>
+    <string name="register_success">Registro simulado correctamente. Ahora puedes continuar al inicio.</string>
+</resources>

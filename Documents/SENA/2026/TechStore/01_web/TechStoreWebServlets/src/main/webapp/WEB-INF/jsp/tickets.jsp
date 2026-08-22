@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.TicketSoporte" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.List,com.techstore.web.model.TicketSoporte,com.techstore.web.util.Html" %>
 <%
     List<TicketSoporte> tickets = (List<TicketSoporte>) request.getAttribute("tickets");
     if (tickets == null) {
@@ -38,10 +38,10 @@
     </header>
 
     <% if (mensaje != null && !mensaje.isBlank()) { %>
-    <div class="message message--success"><%= mensaje %></div>
+    <div class="message message--success"><%= Html.escape(mensaje) %></div>
     <% } %>
     <% if (error != null && !error.isBlank()) { %>
-    <div class="message message--error"><%= error %></div>
+    <div class="message message--error"><%= Html.escape(error) %></div>
     <% } %>
 
     <section class="panel">
@@ -49,7 +49,7 @@
             <input type="hidden" name="accion" value="listar">
             <label class="field">
                 <span>Buscar ticket</span>
-                <input type="search" name="q" value="<%= filtro %>" placeholder="ID, cliente, asunto o estado">
+                <input type="search" name="q" value="<%= Html.escape(filtro) %>" placeholder="ID, cliente, asunto o estado">
             </label>
             <div class="search-actions">
                 <button class="btn btn--primary" type="submit">Buscar</button>
@@ -80,18 +80,18 @@
                 <% } else { %>
                     <% for (TicketSoporte ticket : tickets) { %>
                         <tr>
-                            <td><%= ticket.getIdTicket() %></td>
-                            <td><%= ticket.getCliente() %></td>
-                            <td><%= ticket.getAsunto() %></td>
-                            <td><span class="badge badge--success"><%= ticket.getEstado() %></span></td>
+                            <td><%= Html.escape(ticket.getIdTicket()) %></td>
+                            <td><%= Html.escape(ticket.getCliente()) %></td>
+                            <td><%= Html.escape(ticket.getAsunto()) %></td>
+                            <td><span class="badge badge--success"><%= Html.escape(ticket.getEstado()) %></span></td>
                             <td><%= ticket.getFechaCreacion() %></td>
                             <td><%= ticket.getFechaCierre() == null ? "-" : ticket.getFechaCierre() %></td>
                             <td>
                                 <div class="row-actions">
-                                    <a class="link-action" href="<%= contextPath %>/tickets?accion=editar&id=<%= ticket.getIdTicket() %>">Editar</a>
+                                    <a class="link-action" href="<%= contextPath %>/tickets?accion=editar&id=<%= Html.escape(ticket.getIdTicket()) %>">Editar</a>
                                     <form method="post" action="<%= contextPath %>/tickets" onsubmit="return confirm('¿Deseas cerrar este ticket?');">
                                         <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= ticket.getIdTicket() %>">
+                                        <input type="hidden" name="id" value="<%= Html.escape(ticket.getIdTicket()) %>">
                                         <button class="link-action link-action--danger" type="submit">Cerrar</button>
                                     </form>
                                 </div>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Usuario" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.techstore.web.model.Usuario, com.techstore.web.util.Html" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,12 +17,7 @@
 
     String error = request.getParameter("error");
     String mensaje = request.getParameter("mensaje");
-    String redirect = request.getParameter("redirect");
-    redirect = redirect == null ? "" : redirect
-            .replace("&", "&amp;")
-            .replace("\"", "&quot;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;");
+    String redirect = Html.escape(request.getParameter("redirect"));
 %>
 <main class="auth-shell">
     <section class="panel auth-showcase">
@@ -75,10 +70,10 @@
         </p>
 
         <% if (mensaje != null && !mensaje.isBlank()) { %>
-            <div class="auth-message auth-message--info"><%= mensaje %></div>
+            <div class="auth-message auth-message--info"><%= Html.escape(mensaje) %></div>
         <% } %>
         <% if (error != null && !error.isBlank()) { %>
-            <div class="auth-message auth-message--error"><%= error %></div>
+            <div class="auth-message auth-message--error"><%= Html.escape(error) %></div>
         <% } %>
 
         <form class="auth-form" method="post" action="<%= request.getContextPath() %>/login">
