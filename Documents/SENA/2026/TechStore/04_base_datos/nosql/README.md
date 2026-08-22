@@ -4,13 +4,21 @@ Espacio reservado para la evidencia MongoDB y soportes NoSQL de TechStore.
 
 ## Estado
 
-La estructura relacional principal ya está definida en `03_base_datos/sql/`.
-Aquí se consolidará la parte NoSQL del proyecto cuando se documente la colección, inserciones, consultas, actualizaciones y validaciones.
+La evidencia nueva se encuentra en:
 
-## Sugerencia de contenido futuro
+- `techstore-nosql-api/`
 
-- Script de creación de base NoSQL.
-- Colecciones del proyecto TechStore.
-- Capturas de MongoDB Compass.
-- Consultas y actualizaciones de validación.
-- Evidencia para el documento final.
+Alli esta la API REST con:
+
+- `Express.js`
+- `Mongoose`
+- `body-parser`
+- `nodemon`
+- CRUD completo sobre la coleccion `productos`
+
+## Soportes sugeridos
+
+- Capturas del arranque del servidor.
+- Capturas de Postman para cada metodo.
+- Capturas de MongoDB Compass o `mongosh` mostrando la informacion guardada.
+- Video de sustentacion.

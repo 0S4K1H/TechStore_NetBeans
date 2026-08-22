@@ -1,0 +1,100 @@
+{
+  "info": {
+    "_postman_id": "d7a4d1ef-4cf1-4d85-8dbe-7e9c3f8a9e41",
+    "name": "TechStore NoSQL CRUD",
+    "description": "Coleccion para la evidencia GA7-220501096-AA5-EV01 con Express, Mongoose, body-parser y nodemon.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "key": "productId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sku\": \"TS-NOSQL-001\",\n  \"nombre\": \"Laptop Lenovo IdeaPad 3\",\n  \"descripcion\": \"Producto de prueba para demostrar el CRUD en MongoDB\",\n  \"marca\": \"Lenovo\",\n  \"categoria\": \"portatiles\",\n  \"precio\": 2300000,\n  \"stock\": 12,\n  \"imagen\": \"https://example.com/laptop.jpg\",\n  \"activo\": true\n}"
+        },
+        "url": "{{baseUrl}}/productos",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "const response = pm.response.json();",
+                "if (response && response.data && response.data._id) {",
+                "  pm.collectionVariables.set('productId', response.data._id);",
+                "}"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "List Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/productos"
+      }
+    },
+    {
+      "name": "Get Product By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/productos/{{productId}}"
+      }
+    },
+    {
+      "name": "Update Product",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Laptop Lenovo IdeaPad 3 Pro\",\n  \"descripcion\": \"Actualizacion para mostrar la operacion UPDATE\",\n  \"marca\": \"Lenovo\",\n  \"categoria\": \"portatiles\",\n  \"precio\": 2450000,\n  \"stock\": 9,\n  \"activo\": true\n}"
+        },
+        "url": "{{baseUrl}}/productos/{{productId}}"
+      }
+    },
+    {
+      "name": "Delete Product",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/productos/{{productId}}"
+      }
+    }
+  ]
+}
