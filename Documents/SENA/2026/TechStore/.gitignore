@@ -19,6 +19,7 @@
 
 # TechStore local tool state
 **/.impeccable/
+graphify-out/
 
 # Tomcat runtime/deployed webapps
 07_instaladores/apache-tomcat-10.1.57/webapps/

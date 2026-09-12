@@ -66,6 +66,11 @@ public class UsuarioApiServlet extends HttpServlet {
                 Json.writeError(response, HttpServletResponse.SC_BAD_REQUEST, error);
                 return;
             }
+            if (usuarioDAO.existeUsernameOEmail(usuario.getUsername(), usuario.getEmail())) {
+                Json.writeError(response, HttpServletResponse.SC_CONFLICT,
+                        "El nombre de usuario o el correo ya existe. Usa datos únicos para crear una cuenta nueva.");
+                return;
+            }
 
             boolean creado = usuarioDAO.crear(usuario);
             if (!creado) {
@@ -73,6 +78,9 @@ public class UsuarioApiServlet extends HttpServlet {
                 return;
             }
             Json.write(response, HttpServletResponse.SC_CREATED, UsuarioPublico.from(usuario));
+        } catch (java.sql.SQLIntegrityConstraintViolationException ex) {
+            Json.writeError(response, HttpServletResponse.SC_CONFLICT,
+                    "El nombre de usuario o el correo ya existe. Usa datos únicos para crear una cuenta nueva.");
         } catch (SQLException ex) {
             Json.writeError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "No fue posible crear el usuario.");
         }

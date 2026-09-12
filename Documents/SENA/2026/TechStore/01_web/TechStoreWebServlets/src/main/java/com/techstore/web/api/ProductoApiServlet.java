@@ -89,6 +89,15 @@ public class ProductoApiServlet extends HttpServlet {
             Producto producto = Json.read(request, Producto.class);
             producto.setIdProducto(id);
 
+            Producto existente = productoDAO.buscarPorId(id);
+            if (existente == null) {
+                Json.writeError(response, HttpServletResponse.SC_NOT_FOUND, "Producto no encontrado.");
+                return;
+            }
+            if (producto.getCodigoInv() == null || producto.getCodigoInv().isBlank()) {
+                producto.setCodigoInv(existente.getCodigoInv());
+            }
+
             String error = validar(producto);
             if (error != null) {
                 Json.writeError(response, HttpServletResponse.SC_BAD_REQUEST, error);

@@ -24,7 +24,12 @@ const ROL_OPTIONS = [
 
 const fields = [
   { name: 'nombre', label: 'Nombre completo', required: true, span: 2 },
-  { name: 'username', label: 'Usuario', required: true },
+  {
+    name: 'username',
+    label: 'Nombre de usuario',
+    required: true,
+    hint: 'Debe ser único. El ID interno se genera automáticamente en la base de datos.',
+  },
   { name: 'rol', label: 'Rol', type: 'select', required: true, options: ROL_OPTIONS },
   { name: 'email', label: 'Correo', type: 'email', required: true },
   { name: 'ciudad', label: 'Ciudad' },

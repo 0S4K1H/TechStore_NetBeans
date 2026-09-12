@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "d7a4d1ef-4cf1-4d85-8dbe-7e9c3f8a9e41",
-    "name": "TechStore NoSQL CRUD",
+    "name": "TechStore NoSQL API - Auth y CRUD",
     "description": "Coleccion para la evidencia GA7-220501096-AA5-EV01 con Express, Mongoose, body-parser y nodemon.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -13,11 +13,19 @@
     {
       "key": "productId",
       "value": ""
+    },
+    {
+      "key": "demoUser",
+      "value": "mateo_demo_api"
+    },
+    {
+      "key": "demoEmail",
+      "value": "mateo_demo_api@techstore.demo"
     }
   ],
   "item": [
     {
-      "name": "Health",
+      "name": "01 Health",
       "request": {
         "method": "GET",
         "header": [],
@@ -25,7 +33,58 @@
       }
     },
     {
-      "name": "Create Product",
+      "name": "02 Registrar usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"{{demoUser}}\",\n  \"nombre\": \"Mateo Demo API\",\n  \"email\": \"{{demoEmail}}\",\n  \"password\": \"12345\",\n  \"rol\": \"cliente\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/register"
+      }
+    },
+    {
+      "name": "03 Login correcto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"{{demoUser}}\",\n  \"password\": \"12345\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "04 Login incorrecto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": \"{{demoUser}}\",\n  \"password\": \"clave_mala\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "05 Crear producto",
       "request": {
         "method": "POST",
         "header": [
@@ -56,7 +115,7 @@
       }
     },
     {
-      "name": "List Products",
+      "name": "06 Consultar productos",
       "request": {
         "method": "GET",
         "header": [],
@@ -64,7 +123,7 @@
       }
     },
     {
-      "name": "Get Product By ID",
+      "name": "07 Consultar producto por ID",
       "request": {
         "method": "GET",
         "header": [],
@@ -72,7 +131,7 @@
       }
     },
     {
-      "name": "Update Product",
+      "name": "08 Actualizar producto",
       "request": {
         "method": "PUT",
         "header": [
@@ -89,7 +148,7 @@
       }
     },
     {
-      "name": "Delete Product",
+      "name": "09 Eliminar producto",
       "request": {
         "method": "DELETE",
         "header": [],

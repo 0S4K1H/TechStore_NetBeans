@@ -48,15 +48,18 @@ public class ProductoDAO {
                        p.nombre, p.categoria, p.precio, p.stock, p.activo, p.fecha_creacion
                 FROM productos p
                 INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor
+                WHERE p.activo = 1
                 """);
 
         boolean tieneFiltro = filtro != null && !filtro.isBlank();
         if (tieneFiltro) {
             sql.append("""
-                    WHERE LOWER(p.id_producto) LIKE ?
+                    AND (
+                         LOWER(p.id_producto) LIKE ?
                        OR LOWER(p.codigo_inv) LIKE ?
                        OR LOWER(p.nombre) LIKE ?
                        OR LOWER(pr.nombre) LIKE ?
+                    )
                     """);
         }
         sql.append(" ORDER BY p.id_producto");
@@ -90,7 +93,7 @@ public class ProductoDAO {
                        p.nombre, p.categoria, p.precio, p.stock, p.activo, p.fecha_creacion
                 FROM productos p
                 INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor
-                WHERE p.id_producto = ?
+                WHERE p.id_producto = ? AND p.activo = 1
                 """;
 
         try (Connection conexion = Conexion.getConnection();

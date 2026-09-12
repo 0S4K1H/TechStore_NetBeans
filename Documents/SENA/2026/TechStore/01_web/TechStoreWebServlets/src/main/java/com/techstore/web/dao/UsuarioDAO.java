@@ -104,21 +104,44 @@ public class UsuarioDAO {
         }
     }
 
+    /** Valida unicidad real contra la tabla completa, incluyendo cuentas inactivas. */
+    public boolean existeUsernameOEmail(String username, String email) throws SQLException {
+        String sql = """
+                SELECT 1
+                FROM usuarios
+                WHERE LOWER(username) = LOWER(?) OR LOWER(email) = LOWER(?)
+                LIMIT 1
+                """;
+
+        try (Connection conexion = Conexion.getConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, username == null ? "" : username.trim());
+            ps.setString(2, email == null ? "" : email.trim());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     public List<Usuario> listar(String filtro) throws SQLException {
         StringBuilder sql = new StringBuilder("""
                 SELECT id_usuario, username, password_demo, rol, nombre, email, ciudad, activo, fecha_registro
                 FROM usuarios
+                WHERE activo = 1
                 """);
 
         boolean tieneFiltro = filtro != null && !filtro.isBlank();
         if (tieneFiltro) {
             sql.append("""
-                    WHERE LOWER(id_usuario) LIKE ?
+                    AND (
+                         LOWER(id_usuario) LIKE ?
                        OR LOWER(username) LIKE ?
                        OR LOWER(rol) LIKE ?
                        OR LOWER(nombre) LIKE ?
                        OR LOWER(email) LIKE ?
                        OR LOWER(ciudad) LIKE ?
+                    )
                     """);
         }
         sql.append(" ORDER BY nombre");
@@ -184,7 +207,7 @@ public class UsuarioDAO {
         String sql = """
                 SELECT id_usuario, username, password_demo, rol, nombre, email, ciudad, activo, fecha_registro
                 FROM usuarios
-                WHERE id_usuario = ?
+                WHERE id_usuario = ? AND activo = 1
                 """;
 
         try (Connection conexion = Conexion.getConnection();
