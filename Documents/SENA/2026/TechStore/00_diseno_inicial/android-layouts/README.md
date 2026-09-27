@@ -1,6 +1,6 @@
 # TechStore Mobile - Layouts Android
 
-Estos archivos corresponden a la evidencia EV08 y ahora quedaron organizados como un proyecto Android base para abrir directamente en Android Studio.
+Proyecto Android base con layouts moviles de TechStore para abrir directamente en Android Studio.
 
 ## Layouts incluidos
 
@@ -25,9 +25,9 @@ Estos archivos corresponden a la evidencia EV08 y ahora quedaron organizados com
 6. Revisa cada XML en modo `Design` o `Split`.
 7. Ejecuta el preview o un emulador si deseas capturas mas completas.
 
-Tambien puedes usar el script `open-android-project.ps1` ubicado en la carpeta raiz de la evidencia.
+Tambien puedes usar el script `open-android-project.ps1` ubicado en la carpeta raiz del modulo.
 
-## Capturas que conviene tomar
+## Revision sugerida
 
 1. Instalacion de Android Studio.
 2. Creacion del proyecto.

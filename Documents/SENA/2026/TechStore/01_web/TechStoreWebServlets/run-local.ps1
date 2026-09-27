@@ -1,10 +1,12 @@
 $ErrorActionPreference = 'Stop'
 
-$TomcatRoot = 'C:\Users\mateo\Documents\SENA\2026\TechStore\07_instaladores\apache-tomcat-10.1.57'
-$JavaHome = 'C:\Users\mateo\Downloads\TechStore_Setup\OpenJDK21U-jdk_x64_windows_hotspot_21\jdk-21.0.11+10'
+$ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RepositoryRoot = Split-Path -Parent (Split-Path -Parent $ProjectRoot)
+$TomcatRoot = Join-Path $RepositoryRoot '07_instaladores\apache-tomcat-10.1.57'
 
-$env:JAVA_HOME = $JavaHome
-$env:Path = "$JavaHome\bin;$env:Path"
+if ($env:JAVA_HOME) {
+    $env:Path = "$env:JAVA_HOME\bin;$env:Path"
+}
 
 & "$PSScriptRoot\build.ps1"
 

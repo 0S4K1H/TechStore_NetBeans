@@ -1,6 +1,6 @@
 -- ============================================================
--- EVIDENCIA: GA6-220501096-AA2-EV01
--- PROYECTO: TECHSTORE (modelo relacional coherente con la web)
+-- PROYECTO: TECHSTORE
+-- MODELO: Relacional coherente con la web
 -- MOTOR: MySQL 8+
 -- ============================================================
 

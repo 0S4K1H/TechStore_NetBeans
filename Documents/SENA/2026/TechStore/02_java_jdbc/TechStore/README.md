@@ -1,6 +1,6 @@
 # TechStore JDBC de consola
 
-Proyecto Java de consola usado como evidencia complementaria del módulo JDBC.
+Proyecto Java de consola usado como modulo complementario de conexion JDBC.
 
 ## Qué demuestra
 

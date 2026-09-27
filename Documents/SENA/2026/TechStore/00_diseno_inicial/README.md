@@ -1,6 +1,6 @@
 # Maqueta inicial TechStore
 
-Esta carpeta conserva la primera versión visual del proyecto TechStore.
+Esta carpeta conserva la primera version visual del proyecto TechStore.
 
 ## Contenido
 
@@ -8,12 +8,10 @@ Esta carpeta conserva la primera versión visual del proyecto TechStore.
 - `css/`: estilos asociados a la maqueta.
 - `js/`: comportamiento visual y lógico de la versión inicial.
 - `img/`: logos y recursos gráficos.
-- `docs/`: soportes de navegación y diseño móvil.
-- `scripts/`: utilidades de generación de documentos.
+- `docs/`: soportes de navegacion y diseno movil.
 - `android-layouts/`: prototipos y recursos móviles.
-- `documentos/`: PDF y DOCX de la evidencia original.
 - `util/`: scripts auxiliares.
 
 ## Uso
 
-Esta carpeta no reemplaza la aplicación final. Sirve como referencia del diseño inicial y respaldo de la evolución del proyecto.
+Esta carpeta no reemplaza la aplicacion final. Sirve como referencia del diseno inicial y respaldo de la evolucion del proyecto.

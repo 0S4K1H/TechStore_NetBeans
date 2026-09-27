@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$logFile = "C:\Users\mateo\Documents\SENA\2026\GA5-220501095-AA1-EV04. Maquetación de la interfaz gráfica en HTML\reset_mysql_root.log"
+$logFile = Join-Path $PSScriptRoot "reset_mysql_root.log"
 Start-Transcript -Path $logFile -Force
 
 $mysqlBin = "C:\Program Files\MySQL\MySQL Server 8.0\bin"

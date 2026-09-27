@@ -1,7 +1,8 @@
 $ErrorActionPreference = 'Stop'
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$TomcatRoot = 'C:\Users\mateo\Documents\SENA\2026\TechStore\07_instaladores\apache-tomcat-10.1.57'
+$RepositoryRoot = Split-Path -Parent (Split-Path -Parent $ProjectRoot)
+$TomcatRoot = Join-Path $RepositoryRoot '07_instaladores\apache-tomcat-10.1.57'
 $MysqlJar = Join-Path $ProjectRoot 'lib\mysql-connector-j-9.7.0.jar'
 $GsonJar = Join-Path $ProjectRoot 'lib\gson-2.11.0.jar'
 $BcryptJar = Join-Path $ProjectRoot 'lib\jbcrypt-0.4.jar'

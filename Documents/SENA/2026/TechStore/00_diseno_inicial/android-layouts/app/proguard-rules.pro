@@ -1,1 +1,1 @@
-# Reglas vacias para esta evidencia academica.
+# Reglas vacias para este prototipo.

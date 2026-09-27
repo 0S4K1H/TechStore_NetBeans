@@ -1,6 +1,6 @@
 # TechStore Web Servlets
 
-Módulo web del proyecto **TechStore Solutions S.A.S.** desarrollado para la evidencia **GA7-220501096-AA2-EV02**.
+Modulo web del proyecto **TechStore Solutions S.A.S.**.
 
 ## Alcance
 
@@ -69,7 +69,7 @@ Módulo web del proyecto **TechStore Solutions S.A.S.** desarrollado para la evi
 
 ## Ejecución local
 
-1. Descomprime Tomcat en `C:\Users\mateo\Documents\SENA\2026\TechStore\07_instaladores\apache-tomcat-10.1.57`.
+1. Descomprime Tomcat en `07_instaladores\apache-tomcat-10.1.57`.
 2. Asegura que MySQL TechStore esté activo en `3308`.
 3. Ejecuta `run-local.ps1`.
 4. Abre `http://localhost:8080/techstore-web-servlets/ui/`.
