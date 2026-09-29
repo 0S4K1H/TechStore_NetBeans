@@ -19,6 +19,7 @@ import { CarritoPage } from '../pages/public/CarritoPage'
 import { CheckoutPage } from '../pages/public/CheckoutPage'
 import { MisPedidosPage } from '../pages/public/MisPedidosPage'
 import { SoportePage } from '../pages/public/SoportePage'
+import { EntregaPage } from '../pages/public/EntregaPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { canAccessModule, getLandingPath, isInternalRole } from '../lib/access'
 
@@ -89,6 +90,7 @@ export function AppRoutes() {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<LandingGate />} />
+      <Route path="/entrega" element={<EntregaPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/productos" element={<CatalogoPage />} />
