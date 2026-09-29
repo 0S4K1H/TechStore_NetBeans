@@ -69,7 +69,7 @@ export function CatalogoPage() {
             {soloFavoritos ? 'Tus favoritos' : soloNuevos ? 'Novedades' : 'Productos'}
           </h1>
           <p className="text-muted-foreground text-sm">
-            {query ? `Resultados para "${query}"` : 'Catálogo completo, conectado a la base de datos real.'}
+            {query ? `Resultados para "${query}"` : 'Catálogo completo, conectado a la API del proyecto.'}
           </p>
         </div>
 

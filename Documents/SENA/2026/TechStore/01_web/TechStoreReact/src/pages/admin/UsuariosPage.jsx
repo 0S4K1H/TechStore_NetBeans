@@ -70,7 +70,7 @@ export function UsuariosPage() {
       idField="idUsuario"
       entityLabel="usuario"
       title="Usuarios y autenticación"
-      description="Perfiles de cliente, empleado y administrador conectados a la base de datos real."
+      description="Perfiles de cliente, empleado y administrador conectados a la API del proyecto."
       icon={UsersIcon}
       columns={columns}
       fields={fields}

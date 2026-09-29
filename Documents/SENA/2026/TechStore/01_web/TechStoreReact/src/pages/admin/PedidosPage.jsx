@@ -89,7 +89,7 @@ export function PedidosPage() {
       idField="idPedido"
       entityLabel="pedido"
       title="Gestión de pedidos"
-      description="Órdenes, estados y seguimiento, conectado a la base de datos real."
+      description="Órdenes, estados y seguimiento conectados a la API del proyecto."
       icon={ShoppingCartIcon}
       columns={columns}
       fields={fields}

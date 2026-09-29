@@ -79,7 +79,7 @@ export function ProductosPage() {
       idField="idProducto"
       entityLabel="producto"
       title="Catálogo de productos"
-      description="Inventario, precios y disponibilidad conectados a la base de datos real."
+      description="Inventario, precios y disponibilidad conectados a la API del proyecto."
       icon={PackageIcon}
       columns={columns}
       fields={fields}

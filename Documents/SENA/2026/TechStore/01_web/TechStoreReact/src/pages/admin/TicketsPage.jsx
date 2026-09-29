@@ -47,7 +47,7 @@ export function TicketsPage() {
       idField="idTicket"
       entityLabel="ticket"
       title="Tickets de soporte"
-      description="Incidencias y trazabilidad, conectado a la base de datos real."
+      description="Incidencias y trazabilidad conectadas a la API del proyecto."
       icon={LifeBuoyIcon}
       columns={columns}
       fields={fields}

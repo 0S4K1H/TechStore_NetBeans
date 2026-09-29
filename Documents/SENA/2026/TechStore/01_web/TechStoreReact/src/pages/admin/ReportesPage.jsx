@@ -128,7 +128,7 @@ export function ReportesPage() {
           Reportes
         </Badge>
         <h1 className="text-xl font-semibold">Métricas operativas de TechStore</h1>
-        <p className="text-muted-foreground text-sm">Calculadas en tiempo real a partir de la base de datos.</p>
+        <p className="text-muted-foreground text-sm">Calculadas a partir de los datos disponibles en la API.</p>
       </motion.section>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

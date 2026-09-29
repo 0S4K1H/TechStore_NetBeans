@@ -24,7 +24,7 @@ export function ProveedoresPage() {
       idField="idProveedor"
       entityLabel="proveedor"
       title="Proveedores y abastecimiento"
-      description="Origen del inventario, conectado a la base de datos real."
+      description="Origen del inventario conectado a la API del proyecto."
       icon={TruckIcon}
       columns={columns}
       fields={fields}

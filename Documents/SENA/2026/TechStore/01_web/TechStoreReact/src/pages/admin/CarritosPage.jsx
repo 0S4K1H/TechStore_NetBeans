@@ -41,7 +41,7 @@ export function CarritosPage() {
       idField="idCarrito"
       entityLabel="carrito"
       title="Carritos de compra"
-      description="Preventa y consolidación, conectado a la base de datos real."
+      description="Preventa y consolidación conectadas a la API del proyecto."
       icon={ShoppingBagIcon}
       columns={columns}
       fields={fields}
