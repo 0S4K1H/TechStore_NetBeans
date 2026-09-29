@@ -1,0 +1,8 @@
+{
+  "name": "techstore",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm --prefix 01_web/TechStoreReact install && npm --prefix 01_web/TechStoreReact run build"
+  }
+}

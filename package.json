@@ -1,0 +1,8 @@
+{
+  "name": "techstore-deployment",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm --prefix Documents/SENA/2026/TechStore/01_web/TechStoreReact install && npm --prefix Documents/SENA/2026/TechStore/01_web/TechStoreReact run build"
+  }
+}
